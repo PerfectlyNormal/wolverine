@@ -105,6 +105,11 @@ public class RavenDbPersistenceFrameProvider : IPersistenceFrameProvider
         return new DeleteDocumentFrame(variable);
     }
 
+    public Frame DetermineBulkDeleteFrame(Variable saga, IServiceContainer container)
+    {
+        throw new NotSupportedException();
+    }
+
     public Frame DetermineStorageActionFrame(Type entityType, Variable action, IServiceContainer container)
     {
         var method = typeof(RavenDbStorageActionApplier).GetMethod("ApplyAction")

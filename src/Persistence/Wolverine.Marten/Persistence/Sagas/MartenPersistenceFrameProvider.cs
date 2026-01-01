@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using JasperFx;
 using JasperFx.CodeGeneration;
 using JasperFx.CodeGeneration.Frames;
@@ -110,6 +110,11 @@ internal class MartenPersistenceFrameProvider : IPersistenceFrameProvider
     public Frame DetermineDeleteFrame(Variable variable, IServiceContainer container)
     {
         return new DocumentSessionOperationFrame(variable, nameof(IDocumentSession.Delete));
+    }
+
+    public Frame DetermineBulkDeleteFrame(Variable saga, IServiceContainer container)
+    {
+        throw new NotSupportedException();
     }
 
     public Frame DetermineStorageActionFrame(Type entityType, Variable action, IServiceContainer container)

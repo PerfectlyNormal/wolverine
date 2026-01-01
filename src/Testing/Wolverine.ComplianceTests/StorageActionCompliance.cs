@@ -121,6 +121,29 @@ public abstract class StorageActionCompliance : IAsyncLifetime
     }
 
     [Fact]
+    public async Task use_bulkdelete_as_return_value()
+    {
+        var command1 = new CreateTodo(Guid.NewGuid().ToString(), "Write docs");
+        var command2 = new CreateTodo(Guid.NewGuid().ToString(), "Fix tests");
+        
+        // Should NOT be trying to send the entity as a cascading message
+        var tracked = await Host.InvokeMessageAndWaitAsync(command1);
+        tracked.NoRoutes.Envelopes().Any().ShouldBeFalse();
+
+        var tracked2 = await Host.InvokeMessageAndWaitAsync(command2);
+        tracked2.NoRoutes.Envelopes().Any().ShouldBeFalse();
+
+        var tracked3 = await Host.InvokeMessageAndWaitAsync(new DeleteAllTodosStartingWith("Fix"));
+        tracked3.NoRoutes.Envelopes().Any().ShouldBeFalse();
+
+        var remainingTodo = await Load(command1.Id);
+        var deletedTodo = await Load(command2.Id);
+
+        remainingTodo.Name.ShouldBe("Write docs");
+        deletedTodo.ShouldBeNull();
+    }
+
+    [Fact]
     public async Task use_generic_action_as_insert()
     {
         var shouldInsert = new MaybeInsertTodo(Guid.NewGuid().ToString(), "Pick up milk", true);
@@ -279,6 +302,7 @@ public record CreateTodo(string Id, string Name);
 public record CreateTodo2(string Id, string Name);
 
 public record DeleteTodo(string Id);
+public record DeleteAllTodosStartingWith(string Prefix);
 
 public record RenameTodo(string Id, string Name);
 public record RenameTodo2(string TodoId, string Name);
@@ -343,6 +367,11 @@ public static class TodoHandler
     public static Delete<Todo> Handle(DeleteTodo command, [Entity("Identity")] Todo todo)
     {
         return Storage.Delete(todo);
+    }
+
+    public static BulkDelete<Todo> Handle(DeleteAllTodosStartingWith command)
+    {
+        return Storage.BulkDelete<Todo>(todo => (todo.Name ?? "").StartsWith(command.Prefix));
     }
     
     public static IStorageAction<Todo> Handle(AlterTodo command, [Entity("Identity")] Todo todo)

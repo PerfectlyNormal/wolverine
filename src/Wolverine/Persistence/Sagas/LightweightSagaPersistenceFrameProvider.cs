@@ -101,6 +101,11 @@ public class LightweightSagaPersistenceFrameProvider : IPersistenceFrameProvider
         return new SagaOperation(variable, SagaOperationType.DeleteAsync);
     }
 
+    public Frame DetermineBulkDeleteFrame(Variable saga, IServiceContainer container)
+    {
+        throw new NotSupportedException();
+    }
+
     public Frame DetermineStorageActionFrame(Type entityType, Variable action, IServiceContainer container)
     {
         throw new NotSupportedException();

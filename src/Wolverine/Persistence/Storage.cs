@@ -2,6 +2,7 @@ using JasperFx;
 using JasperFx.CodeGeneration;
 using JasperFx.CodeGeneration.Model;
 using JasperFx.Core.Reflection;
+using System.Linq.Expressions;
 using Wolverine.Configuration;
 using Wolverine.Persistence.Sagas;
 using Wolverine.Runtime;
@@ -47,6 +48,14 @@ public static class Storage
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
     public static Delete<T> Delete<T>(T entity) => new(entity);
+
+    /// <summary>
+    /// "Delete" all entities in the underlying persistence mechanism matching the provided filter function
+    /// </summary>
+    /// <param name="filterFunction"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    public static BulkDelete<T> BulkDelete<T>(Expression<Func<T, bool>> filterFunction) => new(filterFunction);
     
     /// <summary>
     /// Do absolutely nothing with this entity

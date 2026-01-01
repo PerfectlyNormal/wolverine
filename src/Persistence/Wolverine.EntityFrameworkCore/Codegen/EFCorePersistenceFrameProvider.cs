@@ -11,7 +11,6 @@ using Microsoft.Extensions.Logging;
 using Wolverine.Configuration;
 using Wolverine.EntityFrameworkCore.Internals;
 using Wolverine.Persistence;
-using Wolverine.Persistence.Durability;
 using Wolverine.Persistence.Sagas;
 using Wolverine.Runtime;
 
@@ -95,6 +94,17 @@ internal class EFCorePersistenceFrameProvider : IPersistenceFrameProvider
     public Frame DetermineDeleteFrame(Variable variable, IServiceContainer container)
     {
         return DetermineDeleteFrame(null, variable, container);
+    }
+
+    public Frame DetermineBulkDeleteFrame(Variable saga, IServiceContainer container)
+    {
+        var dbContextType = DetermineDbContextType(saga.VariableType, container);
+#if NET8_0
+        var methodName = nameof(RelationalQueryableExtensions.ExecuteDeleteAsync);
+#elif NET9_0_OR_GREATER
+        var methodName = nameof(EntityFrameworkQueryableExtensions.ExecuteDeleteAsync);
+#endif
+        return new DbContextBulkOperationFrame(dbContextType, saga, methodName);
     }
 
     public Frame DetermineStorageActionFrame(Type entityType, Variable action, IServiceContainer container)

@@ -1,6 +1,6 @@
 # Storage Operations with EF Core
 
-Just know that Wolverine completely supports the concept of [Storage Operations](/guide/handlers/side-effects.html#storage-side-effects) for EF Core. 
+Just know that Wolverine completely supports the concept of [Storage Operations](/guide/handlers/side-effects.html#storage-side-effects) for EF Core.
 
 Assuming you have an EF Core `DbContext` type like this registered in your system:
 
@@ -43,18 +43,18 @@ public static class TodoHandler
         Id = command.Id,
         Name = command.Name
     });
-    
+
     public static Store<Todo> Handle(CreateTodo2 command) => Storage.Store(new Todo
     {
         Id = command.Id,
         Name = command.Name
     });
-    
+
     // Use "Id" as the default member
     public static Update<Todo> Handle(
         // The first argument is always the incoming message
-        RenameTodo command, 
-        
+        RenameTodo command,
+
         // By using this attribute, we're telling Wolverine
         // to load the Todo entity from the configured
         // persistence of the app using a member on the
@@ -63,19 +63,19 @@ public static class TodoHandler
     {
         // Do your actual business logic
         todo.Name = command.Name;
-        
+
         // Tell Wolverine that you want this entity
         // updated in persistence
         return Storage.Update(todo);
     }
-    
+
     // Use "TodoId" as the default member
     public static Update<Todo> Handle(RenameTodo2 command, [Entity] Todo todo)
     {
         todo.Name = command.Name;
         return Storage.Update(todo);
     }
-    
+
     // Use the explicit member
     public static Update<Todo> Handle(RenameTodo3 command, [Entity("Identity")] Todo todo)
     {
@@ -87,7 +87,12 @@ public static class TodoHandler
     {
         return Storage.Delete(todo);
     }
-    
+
+    public static BulkDelete<Todo> Handle(DeleteAllTodosStartingWith command)
+    {
+        return Storage.BulkDelete<Todo>(todo => (todo.Name ?? "").StartsWith(command.Prefix));
+    }
+
     public static IStorageAction<Todo> Handle(AlterTodo command, [Entity("Identity")] Todo todo)
     {
         switch (command.Action)
@@ -125,7 +130,7 @@ public static class TodoHandler
         todo.IsComplete = true;
         return Storage.Update(todo);
     }
-    
+
     public static IStorageAction<Todo> Handle(MaybeCompleteTodo command, [Entity(Required = false)] Todo? todo)
     {
         if (todo == null) return Storage.Nothing<Todo>();
@@ -134,7 +139,9 @@ public static class TodoHandler
     }
 }
 ```
-<sup><a href='https://github.com/JasperFx/wolverine/blob/main/src/Testing/Wolverine.ComplianceTests/StorageActionCompliance.cs#L294-L394' title='Snippet source file'>snippet source</a> | <a href='#snippet-sample_todohandler_to_demonstrate_storage_operations' title='Start of snippet'>anchor</a></sup>
+
+<sup><a href='https://github.com/JasperFx/wolverine/blob/main/src/Testing/Wolverine.ComplianceTests/StorageActionCompliance.cs#L295-L400' title='Snippet source file'>snippet source</a> | <a href='#snippet-sample_todohandler_to_demonstrate_storage_operations' title='Start of snippet'>anchor</a></sup>
+
 <!-- endSnippet -->
 
 ::: warning
@@ -149,9 +156,9 @@ to the outbox/inbox.
 
 ## [Entity]
 
-Wolverine also supports the usage of the `[Entity]` attribute to load entity data by its identity with EF Core. As you'd 
-expect, Wolverine can "find" the right EF Core `DbContext` type for the entity type through IoC service registrations. 
-The loaded EF core entity does not included related entities. 
+Wolverine also supports the usage of the `[Entity]` attribute to load entity data by its identity with EF Core. As you'd
+expect, Wolverine can "find" the right EF Core `DbContext` type for the entity type through IoC service registrations.
+The loaded EF core entity does not included related entities.
 
-For more information on the usage of this attribute see 
+For more information on the usage of this attribute see
 [Automatically loading entities to method parameters](/guide/handlers/persistence#automatically-loading-entities-to-method-parameters).

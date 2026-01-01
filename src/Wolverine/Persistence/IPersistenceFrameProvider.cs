@@ -47,6 +47,15 @@ public interface IPersistenceFrameProvider
     /// <returns></returns>
     Frame DetermineDeleteFrame(Variable variable, IServiceContainer container);
 
+    /// <summary>
+    /// Create a bulk delete Frame for the variable, not every persistence provider will be able to support this
+    /// and should throw NotSupportedException if it does not
+    /// </summary>
+    /// <param name="variable"></param>
+    /// <param name="container"></param>
+    /// <returns></returns>
+    Frame DetermineBulkDeleteFrame(Variable variable, IServiceContainer container);
+
     Frame DetermineStorageActionFrame(Type entityType, Variable action, IServiceContainer container);
 
     Frame[] DetermineFrameToNullOutMaybeSoftDeleted(Variable entity);

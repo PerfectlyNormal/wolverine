@@ -1,10 +1,8 @@
-﻿using System.Reflection;
 using JasperFx;
 using JasperFx.CodeGeneration.Frames;
 using JasperFx.CodeGeneration.Model;
 using JasperFx.Core.Reflection;
 using Wolverine.Configuration;
-using Wolverine.Runtime;
 
 namespace Wolverine.Persistence.Sagas;
 
@@ -84,7 +82,7 @@ public class InMemoryPersistenceFrameProvider : IPersistenceFrameProvider
 
         // This guy is pretty limited
         sagaId ??= new Variable(typeof(object), $"{saga.Usage}.Id");
-        
+
         var call = new MethodCall(typeof(InMemorySagaPersistor), method)
         {
             Arguments =
@@ -94,6 +92,11 @@ public class InMemoryPersistenceFrameProvider : IPersistenceFrameProvider
         };
 
         return call;
+    }
+
+    public Frame DetermineBulkDeleteFrame(Variable saga, IServiceContainer container)
+    {
+        throw new NotSupportedException();
     }
 
     public Frame DetermineStoreFrame(Variable saga, IServiceContainer container)
