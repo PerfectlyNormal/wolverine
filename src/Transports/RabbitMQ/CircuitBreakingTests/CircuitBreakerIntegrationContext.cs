@@ -9,7 +9,7 @@ using Wolverine;
 using Wolverine.Logging;
 using Wolverine.Runtime;
 using Wolverine.Transports;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace CircuitBreakingTests;
 

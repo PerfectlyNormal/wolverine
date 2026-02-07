@@ -2,7 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Shouldly;
 using Wolverine.Runtime;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace Wolverine.AmazonSqs.Tests.ConventionalRouting;
 

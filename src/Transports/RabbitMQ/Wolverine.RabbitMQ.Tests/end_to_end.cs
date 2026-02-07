@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using IntegrationTests;
 using JasperFx;
 using JasperFx.CommandLine.Descriptions;
@@ -19,7 +19,7 @@ using Wolverine.Runtime;
 using Wolverine.Tracking;
 using Wolverine.Transports;
 using Xunit;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace Wolverine.RabbitMQ.Tests;
 

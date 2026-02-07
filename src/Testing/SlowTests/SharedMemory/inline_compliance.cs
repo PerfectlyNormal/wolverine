@@ -11,7 +11,7 @@ public class InlineSharedMemoryInlineFixture : TransportComplianceFixture, IAsyn
         AllLocally = true;
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         await SharedMemoryQueueManager.ClearAllAsync();
         

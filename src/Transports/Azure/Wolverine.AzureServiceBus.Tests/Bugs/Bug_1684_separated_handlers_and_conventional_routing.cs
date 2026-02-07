@@ -7,7 +7,7 @@ using Wolverine.AzureServiceBus.Tests.Fixtures;
 using Wolverine.Runtime;
 using Wolverine.Tracking;
 using Xunit;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace Wolverine.AzureServiceBus.Tests.Bugs;
 

@@ -4,7 +4,7 @@ using MartenTests.Distribution.Support;
 using Shouldly;
 using Wolverine;
 using Wolverine.Marten.Distribution;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace MartenTests.Distribution;
 

@@ -17,7 +17,7 @@ public class AppFixture : IAsyncLifetime
 {
     public IAlbaHost Host { get; private set; }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         // Sorry folks, but this is absolutely necessary if you
         // use JasperFx for command line processing and want to
@@ -47,14 +47,14 @@ public class AppFixture : IAsyncLifetime
         #endregion
     }
 
-    public Task DisposeAsync()
+    public ValueTask DisposeAsync()
     {
         if (Host != null)
         {
-            return Host.DisposeAsync().AsTask();
+            return Host.DisposeAsync();
         }
 
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 
     private async Task bootstrap(int delay)
@@ -146,7 +146,7 @@ public abstract class IntegrationContext : IAsyncLifetime, IOpenApiSource
         }
     }
 
-    async Task IAsyncLifetime.InitializeAsync()
+    async ValueTask IAsyncLifetime.InitializeAsync()
     {
         // Using Marten, wipe out all data and reset the state
         // back to exactly what we described in InitialAccountData
@@ -156,9 +156,9 @@ public abstract class IntegrationContext : IAsyncLifetime, IOpenApiSource
     // This is required because of the IAsyncLifetime
     // interface. Note that I do *not* tear down database
     // state after the test. That's purposeful
-    public Task DisposeAsync()
+    public ValueTask DisposeAsync()
     {
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 
     public async Task<IScenarioResult> Scenario(Action<Scenario> configure)

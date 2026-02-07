@@ -21,7 +21,7 @@ public class idempotency_check_in_marten_envelope_transaction : IAsyncLifetime
 {
     private IHost _host;
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         _host = await Host.CreateDefaultBuilder()
             .UseWolverine(opts =>
@@ -36,7 +36,7 @@ public class idempotency_check_in_marten_envelope_transaction : IAsyncLifetime
         await _host.RebuildAllEnvelopeStorageAsync();
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await _host.StopAsync();
     }

@@ -18,16 +18,16 @@ public class stateful_resource_smoke_tests : IAsyncLifetime
     private SqlServerTransport theTransport;
     private IStatefulResource? theResource;
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         await using var conn = new SqlConnection(Servers.SqlServerConnectionString);
         await conn.OpenAsync();
         await conn.DropSchemaAsync("queues");
     }
 
-    public Task DisposeAsync()
+    public ValueTask DisposeAsync()
     {
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 
     private IHostBuilder ConfigureBuilder(bool autoProvision, int starting = 1)

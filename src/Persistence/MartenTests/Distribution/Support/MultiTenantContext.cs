@@ -18,7 +18,7 @@ using Wolverine.Marten.Distribution;
 using Wolverine.Runtime;
 using Wolverine.Runtime.Agents;
 using Wolverine.Tracking;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace MartenTests.Distribution.Support;
 
@@ -42,7 +42,7 @@ public class MultiTenantContext : IAsyncLifetime
         _output = output;
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         await using var conn = new NpgsqlConnection(Servers.PostgresConnectionString);
         await conn.OpenAsync();
@@ -72,7 +72,7 @@ public class MultiTenantContext : IAsyncLifetime
         theDistributor = theOriginalHost.Services.GetServices<IAgentFamily>().OfType<EventSubscriptionAgentFamily>().Single();
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await _tenancyStore.DisposeAsync();
         _hosts.Reverse();

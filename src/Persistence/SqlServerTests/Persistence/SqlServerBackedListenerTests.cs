@@ -1,13 +1,13 @@
-﻿using Shouldly;
+using Shouldly;
 using Wolverine;
 
 namespace SqlServerTests.Persistence;
 
 public class SqlServerBackedListenerTests : SqlServerBackedListenerContext
 {
-    protected override Task initialize()
+    protected override async ValueTask initialize()
     {
-        return thePersistence.Admin.ClearAllAsync();
+        await thePersistence.Admin.ClearAllAsync();
     }
 
     [Fact]

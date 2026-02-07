@@ -2,7 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Wolverine.ComplianceTests;
 using Wolverine.Runtime.Handlers;
 using Xunit;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace CoreTests.Compilation;
 

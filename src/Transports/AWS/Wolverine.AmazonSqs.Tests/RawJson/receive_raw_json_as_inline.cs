@@ -14,7 +14,7 @@ public class receive_raw_json_as_inline : IAsyncLifetime
     private IHost _sender;
     private string theQueueName;
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         theQueueName = "receive_native_json_inline";
         _host = await Host.CreateDefaultBuilder()
@@ -109,7 +109,7 @@ public class receive_raw_json_as_inline : IAsyncLifetime
         ((int)sendMessageResponse.HttpStatusCode).ShouldBeLessThan(300, customMessage: "Ensure Success StatusCode");
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await _host.StopAsync();
         await _sender.StopAsync();

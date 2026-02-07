@@ -5,7 +5,7 @@ using Wolverine;
 using Wolverine.ComplianceTests;
 using Wolverine.Postgresql;
 using Xunit;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace PostgresqlTests.LeaderElection;
 

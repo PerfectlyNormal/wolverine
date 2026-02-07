@@ -1,8 +1,9 @@
 using Alba;
-using Marten;
-using Microsoft.Extensions.DependencyInjection;
 using JasperFx;
 using JasperFx.CommandLine;
+using Marten;
+using Microsoft.Extensions.DependencyInjection;
+using System.Threading.Tasks;
 using Wolverine.Runtime;
 
 namespace DiagnosticsTests;
@@ -11,7 +12,7 @@ public class AppFixture : IAsyncLifetime
 {
     public IAlbaHost? Host { get; private set; }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         JasperFxEnvironment.AutoStartHost = true;
 
@@ -21,7 +22,7 @@ public class AppFixture : IAsyncLifetime
         Host = await AlbaHost.For<Program>(x => { });
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await Host!.StopAsync();
         Host.Dispose();
@@ -49,7 +50,7 @@ public abstract class IntegrationContext : IAsyncLifetime
     public IDocumentStore Store => _fixture.Host!.Services.GetRequiredService<IDocumentStore>();
 
 
-    async Task IAsyncLifetime.InitializeAsync()
+    async ValueTask IAsyncLifetime.InitializeAsync()
     {
         // Using Marten, wipe out all data and reset the state
         // back to exactly what we described in InitialAccountData
@@ -59,9 +60,9 @@ public abstract class IntegrationContext : IAsyncLifetime
     // This is required because of the IAsyncLifetime
     // interface. Note that I do *not* tear down database
     // state after the test. That's purposeful
-    public Task DisposeAsync()
+    public ValueTask DisposeAsync()
     {
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 
     public Task<IScenarioResult> Scenario(Action<Scenario> configure)

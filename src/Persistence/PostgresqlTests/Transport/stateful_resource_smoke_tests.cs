@@ -19,7 +19,7 @@ public class stateful_resource_smoke_tests : IAsyncLifetime
     private IStatefulResource? theResource;
     private PostgresqlTransport theTransport;
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         await using var conn = new NpgsqlConnection(Servers.PostgresConnectionString);
         await conn.OpenAsync();
@@ -28,9 +28,9 @@ public class stateful_resource_smoke_tests : IAsyncLifetime
         await conn.CloseAsync();
     }
 
-    public Task DisposeAsync()
+    public ValueTask DisposeAsync()
     {
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 
     private IHostBuilder ConfigureBuilder(bool autoProvision, int starting = 1)

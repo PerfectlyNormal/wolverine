@@ -6,7 +6,7 @@ using Wolverine.ComplianceTests;
 using Wolverine.ComplianceTests.Compliance;
 using Wolverine.Runtime;
 using Wolverine.Tracking;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace Wolverine.Kafka.Tests;
 

@@ -1,4 +1,4 @@
-﻿using IntegrationTests;
+using IntegrationTests;
 using JasperFx.Core;
 using Marten;
 using MartenTests.Persistence.Resiliency;
@@ -12,7 +12,7 @@ using Wolverine.Persistence.Durability;
 using Wolverine.Postgresql;
 using Wolverine.Tracking;
 using Wolverine.Transports.Tcp;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace MartenTests.Persistence;
 
@@ -60,16 +60,16 @@ public class end_to_end_with_persistence : PostgresqlContext, IDisposable, IAsyn
         });
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         await theSender.ResetResourceState();
         await theReceiver.ResetResourceState();
     }
 
-    public Task DisposeAsync()
+    public ValueTask DisposeAsync()
     {
         Dispose();
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 
     public void Dispose()

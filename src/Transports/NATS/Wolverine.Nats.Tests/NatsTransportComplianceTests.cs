@@ -14,7 +14,7 @@ public class InlineNatsTransportFixture : TransportComplianceFixture, IAsyncLife
     {
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         var number = ++Counter;
         var receiverSubject = $"compliance.receiver.inline.{number}";
@@ -55,7 +55,7 @@ public class BufferedNatsTransportFixture : TransportComplianceFixture, IAsyncLi
     {
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         var number = ++Counter;
         var receiverSubject = $"compliance.receiver.buffered.{number}";
@@ -96,7 +96,7 @@ public class JetStreamNatsTransportFixture : TransportComplianceFixture, IAsyncL
     {
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         var number = ++Counter;
         var streamName = $"COMPLIANCE_{number}";

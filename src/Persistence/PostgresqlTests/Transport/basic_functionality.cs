@@ -14,7 +14,7 @@ using Wolverine.Postgresql.Transport;
 using Wolverine.Runtime;
 using Wolverine.Runtime.WorkerQueues;
 using Wolverine.Tracking;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace PostgresqlTests.Transport;
 
@@ -33,7 +33,7 @@ public class basic_functionality : PostgresqlContext, IAsyncLifetime
     private IMessageStore theMessageStore;
     private WolverineRuntime theRuntime;
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         using var conn = new NpgsqlConnection(Servers.PostgresConnectionString);
         await conn.OpenAsync();
@@ -55,7 +55,7 @@ public class basic_functionality : PostgresqlContext, IAsyncLifetime
         theRuntime = theHost.GetRuntime();
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await theHost.StopAsync();
         theHost.Dispose();

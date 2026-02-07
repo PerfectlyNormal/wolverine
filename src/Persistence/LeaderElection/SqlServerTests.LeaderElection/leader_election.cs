@@ -4,7 +4,7 @@ using Weasel.SqlServer;
 using Wolverine;
 using Wolverine.ComplianceTests;
 using Wolverine.SqlServer;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace SqlServerTests.LeaderElection;
 

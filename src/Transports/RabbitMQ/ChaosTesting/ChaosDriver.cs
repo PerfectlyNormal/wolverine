@@ -8,7 +8,7 @@ using Wolverine;
 using Wolverine.ErrorHandling;
 using Wolverine.Runtime;
 using Wolverine.Transports;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace ChaosTesting;
 
@@ -80,7 +80,7 @@ public class ChaosDriver : IAsyncDisposable, IDisposable
         foreach (var host in _receivers.Values) host.Dispose();
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         using var sender = await Host.CreateDefaultBuilder()
             .UseWolverine(opts =>

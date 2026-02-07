@@ -28,7 +28,7 @@ public abstract class WebSocketTestContext : IAsyncLifetime
         clientUri = new Uri($"http://localhost:{Port}/messages");
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         var builder = WebApplication.CreateBuilder();
 
@@ -101,7 +101,7 @@ public abstract class WebSocketTestContext : IAsyncLifetime
         return host;
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await theWebApp.StopAsync();
 
@@ -126,7 +126,7 @@ public abstract class WebSocketTestContextWithCustomHub<THub> : IAsyncLifetime w
         clientUri = new Uri($"http://localhost:{Port}/messages");
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         var builder = WebApplication.CreateBuilder();
 
@@ -220,7 +220,7 @@ public abstract class WebSocketTestContextWithCustomHub<THub> : IAsyncLifetime w
         return host;
     }
 
-    public virtual async Task DisposeAsync()
+    public virtual async ValueTask DisposeAsync()
     {
         await theWebApp.StopAsync();
 

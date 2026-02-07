@@ -252,7 +252,7 @@ public class When_message_is_sent : IAsyncLifetime
 {
     private IHost _host;
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         var hostBuilder = Host.CreateDefaultBuilder();
         hostBuilder.ConfigureServices(
@@ -321,6 +321,6 @@ public class When_message_is_sent : IAsyncLifetime
             .ShouldBeOfType<FileAdded>();
     }
 
-    public async Task DisposeAsync() => await _host.StopAsync();
+    public async ValueTask DisposeAsync() => await _host.StopAsync();
 }
 #endregion

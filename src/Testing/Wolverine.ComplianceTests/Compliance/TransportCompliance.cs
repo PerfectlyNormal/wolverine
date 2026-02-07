@@ -65,7 +65,7 @@ public abstract class TransportComplianceFixture : IDisposable, IAsyncDisposable
         }
     }
 
-    protected async Task TheOnlyAppIs(Action<WolverineOptions> configure)
+    protected async ValueTask TheOnlyAppIs(Action<WolverineOptions> configure)
     {
         AllLocally = true;
 
@@ -171,7 +171,7 @@ public abstract class TransportCompliance<T> : IAsyncLifetime where T : Transpor
 
     public T Fixture { get; }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         if (Fixture is IAsyncLifetime lifetime)
         {
@@ -192,7 +192,7 @@ public abstract class TransportCompliance<T> : IAsyncLifetime where T : Transpor
         Fixture.BeforeEach();
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         if (Fixture is IAsyncDisposable)
         {

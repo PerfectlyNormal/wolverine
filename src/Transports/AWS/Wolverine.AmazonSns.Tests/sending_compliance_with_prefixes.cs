@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Shouldly;
 using Wolverine.AmazonSns.Internal;
 using Wolverine.AmazonSqs;
@@ -17,7 +17,7 @@ public class PrefixedComplianceFixture : TransportComplianceFixture, IAsyncLifet
         IsSenderOnlyTransport = true;
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         var number = ++Number;
         OutboundAddress = new Uri($"{AmazonSnsTransport.SnsProtocol}://boo-prefix-topic-" + number);
@@ -55,7 +55,7 @@ public class PrefixedComplianceFixture : TransportComplianceFixture, IAsyncLifet
         });
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await DisposeAsync();
     }

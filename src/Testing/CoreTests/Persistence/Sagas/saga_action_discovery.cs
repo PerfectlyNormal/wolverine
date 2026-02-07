@@ -1,10 +1,10 @@
-﻿using JasperFx.CodeGeneration;
+using JasperFx.CodeGeneration;
 using JasperFx.Core.Reflection;
 using Wolverine.Attributes;
 using Wolverine.ComplianceTests.Compliance;
 using Wolverine.Runtime.Handlers;
 using Xunit;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace CoreTests.Persistence.Sagas;
 

@@ -14,7 +14,7 @@ public class batch_processing : IAsyncLifetime
 {
     private IHost theHost;
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         #region sample_configuring_batch_processing
 
@@ -47,7 +47,7 @@ public class batch_processing : IAsyncLifetime
         #endregion
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await theHost.StopAsync();
     }

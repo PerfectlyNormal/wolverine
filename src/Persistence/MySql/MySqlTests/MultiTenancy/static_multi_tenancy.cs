@@ -8,7 +8,7 @@ using Wolverine;
 using Wolverine.MySql;
 using Wolverine.Persistence.Durability;
 using Wolverine.RDBMS;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace MySqlTests.MultiTenancy;
 

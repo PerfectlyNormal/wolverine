@@ -11,7 +11,7 @@ using Wolverine;
 using Wolverine.Persistence.Durability;
 using Wolverine.Postgresql;
 using Wolverine.RDBMS;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace PostgresqlTests.MultiTenancy;
 

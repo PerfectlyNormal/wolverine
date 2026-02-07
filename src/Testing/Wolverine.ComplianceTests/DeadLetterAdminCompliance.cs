@@ -10,7 +10,7 @@ using Wolverine.Tracking;
 using Wolverine.Transports;
 using Wolverine.Util;
 using Xunit;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace Wolverine.ComplianceTests;
 
@@ -41,7 +41,7 @@ public abstract class DeadLetterAdminCompliance : IAsyncLifetime
 
     public IHost theHost { get; private set; }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         theHost = await BuildCleanHost();
 
@@ -60,7 +60,7 @@ public abstract class DeadLetterAdminCompliance : IAsyncLifetime
         EightHoursAgo = DateTimeOffset.UtcNow.AddHours(-8);
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await theHost.StopAsync();
         theHost.Dispose();

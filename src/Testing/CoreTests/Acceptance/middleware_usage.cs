@@ -4,7 +4,7 @@ using Wolverine.ComplianceTests;
 using Wolverine.Attributes;
 using Wolverine.Tracking;
 using Xunit;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace CoreTests.Acceptance;
 

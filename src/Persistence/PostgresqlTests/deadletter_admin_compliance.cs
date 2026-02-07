@@ -5,7 +5,7 @@ using Wolverine;
 using Wolverine.ComplianceTests;
 using Wolverine.Marten;
 using Wolverine.Transports.Tcp;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace PostgresqlTests;
 

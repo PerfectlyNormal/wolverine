@@ -7,7 +7,7 @@ using Refit;
 using Shouldly;
 using Wolverine.Marten;
 using Wolverine.Persistence;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace Wolverine.Http.Tests.Persistence;
 
@@ -23,7 +23,7 @@ public class reacting_to_entity_attributes : IAsyncLifetime
         _output = output;
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         var builder = WebApplication.CreateBuilder([]);
 
@@ -46,7 +46,7 @@ public class reacting_to_entity_attributes : IAsyncLifetime
         });
     }
 
-    async Task IAsyncLifetime.DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         if (theHost != null)
         {

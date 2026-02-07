@@ -2,7 +2,7 @@ using JasperFx.Core;
 using MartenTests.Distribution.Support;
 using Wolverine;
 using Wolverine.Marten.Distribution;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace MartenTests.Distribution;
 

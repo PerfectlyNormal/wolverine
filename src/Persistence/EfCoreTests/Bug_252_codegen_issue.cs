@@ -18,7 +18,7 @@ using Wolverine.EntityFrameworkCore;
 using Wolverine.Runtime.Handlers;
 using Wolverine.SqlServer;
 using Wolverine.Tracking;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace EfCoreTests;
 

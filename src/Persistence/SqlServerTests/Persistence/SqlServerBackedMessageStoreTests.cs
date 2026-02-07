@@ -1,4 +1,4 @@
-﻿using IntegrationTests;
+using IntegrationTests;
 using JasperFx.Core;
 using JasperFx.Core.Reflection;
 using Microsoft.Extensions.Hosting;
@@ -22,13 +22,13 @@ public class SqlServerBackedMessageStoreTests : SqlServerContext, IAsyncLifetime
 
     private IHost theHost;
 
-    public override async Task DisposeAsync()
+    public override async ValueTask DisposeAsync()
     {
         await theHost.StopAsync();
         theHost.Dispose();
     }
 
-    protected override async Task initialize()
+    protected override async ValueTask initialize()
     {
         theHost = WolverineHost.For(opts => { opts.PersistMessagesWithSqlServer(Servers.SqlServerConnectionString); });
 

@@ -16,7 +16,7 @@ public class MessageInvocationTests : PostgresqlContext, IAsyncLifetime
 {
     private IHost theHost;
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         theHost = WolverineHost.For(opts =>
         {
@@ -31,7 +31,7 @@ public class MessageInvocationTests : PostgresqlContext, IAsyncLifetime
         await theHost.Get<IDocumentStore>().Advanced.Clean.CompletelyRemoveAllAsync();
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         if (theHost != null)
         {

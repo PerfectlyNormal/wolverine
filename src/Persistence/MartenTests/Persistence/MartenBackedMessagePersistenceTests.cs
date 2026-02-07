@@ -1,4 +1,4 @@
-﻿using IntegrationTests;
+using IntegrationTests;
 using JasperFx;
 using JasperFx.Core;
 using JasperFx.Core.Reflection;
@@ -43,7 +43,7 @@ public class MartenBackedMessagePersistenceTests : PostgresqlContext, IDisposabl
         theEnvelope.ParentId = Guid.NewGuid().ToString();
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         var persistence = theHost.Get<IMessageStore>();
 
@@ -57,10 +57,10 @@ public class MartenBackedMessagePersistenceTests : PostgresqlContext, IDisposabl
             .FirstOrDefault(x => x.Id == theEnvelope.Id);
     }
 
-    public Task DisposeAsync()
+    public ValueTask DisposeAsync()
     {
         Dispose();
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 
     public void Dispose()

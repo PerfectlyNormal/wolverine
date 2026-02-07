@@ -1,7 +1,7 @@
 using Wolverine.ComplianceTests;
 using Wolverine.Runtime.Partitioning;
 using Xunit;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace CoreTests.Runtime.Partitioning;
 

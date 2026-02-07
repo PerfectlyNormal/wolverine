@@ -12,18 +12,13 @@ public class LocalPostgresqlBackedFixture : TransportComplianceFixture, IAsyncLi
     {
     }
 
-    public Task InitializeAsync()
+    public ValueTask InitializeAsync()
     {
         return TheOnlyAppIs(opts =>
         {
             opts.PersistMessagesWithPostgresql(Servers.PostgresConnectionString);
             opts.Durability.Mode = DurabilityMode.Solo;
         });
-    }
-
-    public async Task DisposeAsync()
-    {
-        await DisposeAsync();
     }
 }
 

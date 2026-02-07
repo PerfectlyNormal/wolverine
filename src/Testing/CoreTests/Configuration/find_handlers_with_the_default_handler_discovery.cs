@@ -6,7 +6,7 @@ using Wolverine.ComplianceTests;
 using Wolverine.Attributes;
 using Wolverine.Runtime;
 using Xunit;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace CoreTests.Configuration;
 

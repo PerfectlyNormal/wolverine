@@ -19,7 +19,7 @@ public class MessageRoutingContext : IAsyncLifetime
 {
     private IHost _host;
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         _host = await Host.CreateDefaultBuilder()
             .UseWolverine(configure).StartAsync();
@@ -55,7 +55,7 @@ public class MessageRoutingContext : IAsyncLifetime
         actual.ShouldBe(expected);
     }
 
-    async Task IAsyncLifetime.DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         if (_host != null)
         {

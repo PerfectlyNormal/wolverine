@@ -20,7 +20,7 @@ using Wolverine.SqlServer;
 using Wolverine.SqlServer.Persistence;
 using Wolverine.Tracking;
 using Xunit;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace PersistenceTests.ModularMonoliths;
 
@@ -61,7 +61,7 @@ public class registration_of_message_stores(ITestOutputHelper Output) : IAsyncLi
         return builder.ConnectionString;
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         using var conn = new NpgsqlConnection(Servers.PostgresConnectionString);
         await conn.OpenAsync();
@@ -72,7 +72,7 @@ public class registration_of_message_stores(ITestOutputHelper Output) : IAsyncLi
         connectionString4 = await CreateDatabaseIfNotExists(conn, "database4");
     }
 
-    async Task IAsyncLifetime.DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         if (_host != null)
         {

@@ -15,7 +15,7 @@ public class StreamQueueFixture : TransportComplianceFixture, IAsyncLifetime
     {
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         OutboundAddress = $"rabbitmq://queue/stream1".ToUri();
 
@@ -44,7 +44,7 @@ public class StreamQueueFixture : TransportComplianceFixture, IAsyncLifetime
         });
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await DisposeAsync();
     }

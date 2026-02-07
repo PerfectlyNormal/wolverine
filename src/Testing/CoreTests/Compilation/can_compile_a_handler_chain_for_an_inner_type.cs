@@ -1,8 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Wolverine.ComplianceTests.Compliance;
 using Wolverine.Runtime;
 using Xunit;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace CoreTests.Compilation;
 

@@ -10,7 +10,7 @@ public class InlinePulsarTransportFixture : TransportComplianceFixture, IAsyncLi
     {
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         var topic = Guid.NewGuid().ToString();
         var topicPath = $"persistent://public/default/{topic}";
@@ -31,7 +31,7 @@ public class InlinePulsarTransportFixture : TransportComplianceFixture, IAsyncLi
         });
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await DisposeAsync();
     }

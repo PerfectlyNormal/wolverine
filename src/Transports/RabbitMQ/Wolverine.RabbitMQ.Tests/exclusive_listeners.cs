@@ -14,7 +14,7 @@ using Wolverine.Tracking;
 using Wolverine.Transports.Tcp;
 using Wolverine.Util;
 using Xunit;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace Wolverine.RabbitMQ.Tests;
 
@@ -67,14 +67,14 @@ public class exclusive_listeners : IAsyncLifetime
             .ShouldHaveTheSameElementsAs("one", "three", "two");
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         await dropSchema();
 
         _originalHost = await startHostAsync();
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         _hosts.Reverse();
         foreach (var host in _hosts) await host.StopAsync();

@@ -1,5 +1,5 @@
 using Microsoft.Extensions.Logging;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace Wolverine.Nats.Tests.Helpers;
 

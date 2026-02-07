@@ -5,7 +5,7 @@ using Wolverine;
 using Wolverine.ErrorHandling;
 using Wolverine.Marten;
 using Wolverine.RabbitMQ;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace CircuitBreakingTests.RabbitMq;
 

@@ -3,7 +3,7 @@ using Marten;
 using Marten.Services;
 using Microsoft.Extensions.Logging;
 using Npgsql;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace TeleHealth.Tests;
 
@@ -124,6 +124,16 @@ public class TestOutputMartenLogger : IMartenLogger, IMartenSessionLogger, ILogg
 
     private class NoopTestOutputHelper : ITestOutputHelper
     {
+        public string Output => "";
+
+        public void Write(string message)
+        {
+        }
+
+        public void Write(string format, params object[] args)
+        {
+        }
+
         public void WriteLine(string message)
         {
         }

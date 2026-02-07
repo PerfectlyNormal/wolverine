@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Hosting;
 using NSubstitute;
 using NSubstitute.ReceivedExtensions;
 using JasperFx.Resources;
@@ -21,7 +21,7 @@ public class when_publishing_and_receiving_by_partition_key : IAsyncLifetime
     
     private IHost _sender;
     private IHost _receiver;
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         _sender = await Host.CreateDefaultBuilder()
             .UseWolverine(opts =>
@@ -94,7 +94,7 @@ public class when_publishing_and_receiving_by_partition_key : IAsyncLifetime
 
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await _sender.StopAsync();
         await _receiver.StopAsync();

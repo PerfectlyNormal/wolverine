@@ -16,7 +16,7 @@ public class publish_and_receive_raw_json : IAsyncLifetime
     private IHost _sender;
     private IHost _receiver;
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         #region sample_raw_json_sending_and_receiving_with_kafka
 
@@ -90,7 +90,7 @@ public class publish_and_receive_raw_json : IAsyncLifetime
         await Task.Delay(2.Minutes());
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await _sender.StopAsync();
         await _receiver.StopAsync();

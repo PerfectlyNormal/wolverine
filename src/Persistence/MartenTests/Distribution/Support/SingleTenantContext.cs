@@ -18,7 +18,7 @@ using Wolverine.Marten.Distribution;
 using Wolverine.MessagePack;
 using Wolverine.Runtime.Agents;
 using Wolverine.Tracking;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace MartenTests.Distribution.Support;
 
@@ -34,14 +34,14 @@ public abstract class SingleTenantContext : IAsyncLifetime
         _output = output;
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         await dropSchema();
 
         theOriginalHost = await startHostAsync();
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         _hosts.Reverse();
         foreach (var host in _hosts.ToArray())
