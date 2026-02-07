@@ -56,13 +56,16 @@ public static class AzureServiceBusTransportExtensions
     /// <param name="endpoints"></param>
     /// <param name="connectionString"></param>
     /// <param name="configure"></param>
+    /// <param name="managementConnectionString">Optional connection string for management access</param>
     /// <returns></returns>
     /// <exception cref="ArgumentNullException"></exception>
     public static AzureServiceBusConfiguration UseAzureServiceBus(this WolverineOptions endpoints,
-        string connectionString, Action<ServiceBusClientOptions>? configure = null)
+        string connectionString, Action<ServiceBusClientOptions>? configure = null,
+        string? managementConnectionString = null)
     {
         AzureServiceBusTransport transport = endpoints.AzureServiceBusTransport();
         transport.ConnectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
+        transport.ManagementConnectionString = managementConnectionString;
         configure?.Invoke(transport.ClientOptions);
 
         return new AzureServiceBusConfiguration(transport, endpoints);
@@ -136,14 +139,17 @@ public static class AzureServiceBusTransportExtensions
     /// <param name="brokerName"></param>
     /// <param name="connectionString"></param>
     /// <param name="configure"></param>
+    /// <param name="managementConnectionString">Optional connection string for management access</param>
     /// <returns></returns>
     /// <exception cref="ArgumentNullException"></exception>
     public static AzureServiceBusConfiguration AddNamedAzureServiceBusBroker(this WolverineOptions endpoints,
         BrokerName brokerName,
-        string connectionString, Action<ServiceBusClientOptions>? configure = null)
+        string connectionString, Action<ServiceBusClientOptions>? configure = null,
+        string? managementConnectionString = null)
     {
         AzureServiceBusTransport transport = endpoints.AzureServiceBusTransport(brokerName);
         transport.ConnectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
+        transport.ManagementConnectionString = managementConnectionString;
         configure?.Invoke(transport.ClientOptions);
 
         return new AzureServiceBusConfiguration(transport, endpoints);

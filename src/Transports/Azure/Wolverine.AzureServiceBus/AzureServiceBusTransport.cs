@@ -3,12 +3,10 @@ using Azure.Core;
 using Azure.Messaging.ServiceBus;
 using Azure.Messaging.ServiceBus.Administration;
 using JasperFx.Core;
-using Microsoft.Extensions.Logging;
 using Wolverine.AzureServiceBus.Internal;
 using Wolverine.Configuration;
 using Wolverine.Runtime;
 using Wolverine.Transports;
-using Wolverine.Transports.Sending;
 
 namespace Wolverine.AzureServiceBus;
 
@@ -115,7 +113,7 @@ public partial class AzureServiceBusTransport : BrokerTransport<AzureServiceBusE
     public async Task WithServiceBusClientAsync(Func<ServiceBusClient, Task> action)
     {
         await action(BusClient);
-        
+
         foreach (var tenant in Tenants)
         {
             tenant.Transport.NamedKeyCredential ??= NamedKeyCredential;
@@ -124,7 +122,7 @@ public partial class AzureServiceBusTransport : BrokerTransport<AzureServiceBusE
             await tenant.Transport.WithServiceBusClientAsync(action);
         }
     }
-    
+
     public ServiceBusClient BusClient => _busClient.Value;
 
 
@@ -138,7 +136,7 @@ public partial class AzureServiceBusTransport : BrokerTransport<AzureServiceBusE
         }
 
         foreach (var tenant in Tenants)
-        { 
+        {
             await tenant.Transport.DisposeAsync();
         }
     }
@@ -165,7 +163,7 @@ public partial class AzureServiceBusTransport : BrokerTransport<AzureServiceBusE
         retryQueue.IsListener = true;
         retryQueue.EndpointName = RetryEndpointName;
         retryQueue.Role = EndpointRole.System;
-        
+
         RetryQueue = retryQueue;
     }
 
@@ -198,6 +196,13 @@ public partial class AzureServiceBusTransport : BrokerTransport<AzureServiceBusE
 
             return _hostName;
         }
+    }
+
+    private string? _managementConnectionString;
+    public string? ManagementConnectionString
+    {
+        get => _managementConnectionString ?? ConnectionString;
+        set => _managementConnectionString = value;
     }
 
     protected override IEnumerable<Endpoint> explicitEndpoints()
@@ -286,7 +291,7 @@ public partial class AzureServiceBusTransport : BrokerTransport<AzureServiceBusE
 
         return new ServiceBusClient(ConnectionString, ClientOptions);
     }
-    
+
     private ServiceBusAdministrationClient createServiceBusAdministrationClient()
     {
         if (FullyQualifiedNamespace.IsNotEmpty() && TokenCredential != null)
@@ -304,7 +309,7 @@ public partial class AzureServiceBusTransport : BrokerTransport<AzureServiceBusE
             return new ServiceBusAdministrationClient(FullyQualifiedNamespace, SasCredential);
         }
 
-        return new ServiceBusAdministrationClient(ConnectionString);
+        return new ServiceBusAdministrationClient(ManagementConnectionString);
     }
 
 
