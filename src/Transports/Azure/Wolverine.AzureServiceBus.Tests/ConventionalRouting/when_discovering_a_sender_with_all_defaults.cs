@@ -1,6 +1,7 @@
 using JasperFx.Core.Reflection;
 using Shouldly;
 using Wolverine.AzureServiceBus.Internal;
+using Wolverine.AzureServiceBus.Tests.Fixtures;
 using Wolverine.Configuration;
 using Wolverine.Runtime.Routing;
 using Xunit;
@@ -11,7 +12,7 @@ public class when_discovering_a_sender_with_all_defaults : ConventionalRoutingCo
 {
     private readonly MessageRoute theRoute;
 
-    public when_discovering_a_sender_with_all_defaults()
+    public when_discovering_a_sender_with_all_defaults(AzureServiceBusE2EFixture fixture) : base(fixture)
     {
         theRoute = PublishingRoutesFor<PublishedMessage>().Single().As<MessageRoute>();
     }

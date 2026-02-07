@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Shouldly;
 using Wolverine.AzureServiceBus.Internal;
+using Wolverine.AzureServiceBus.Tests.Fixtures;
 using Wolverine.ComplianceTests;
 using Wolverine.ComplianceTests.Compliance;
 using Wolverine.Runtime;
@@ -14,6 +15,7 @@ using Xunit.Abstractions;
 
 namespace Wolverine.AzureServiceBus.Tests;
 
+[Collection(nameof(AzureServiceBusE2E))]
 public class end_to_end_with_named_broker
 {
     public static async Task bootstrap_with_named_brokers()
@@ -38,12 +40,14 @@ public class end_to_end_with_named_broker
 
         #endregion
     }
-    
+
+    private readonly AzureServiceBusE2EFixture _fixture;
     private readonly ITestOutputHelper _output;
     private readonly BrokerName theName = new BrokerName("other");
 
-    public end_to_end_with_named_broker(ITestOutputHelper output)
+    public end_to_end_with_named_broker(AzureServiceBusE2EFixture fixture, ITestOutputHelper output)
     {
+        _fixture = fixture;
         _output = output;
     }
     
@@ -102,7 +106,7 @@ public class end_to_end_with_named_broker
             opts.ServiceName = "Publisher";
             opts.Discovery.DisableConventionalDiscovery();
             
-            opts.AddNamedAzureServiceBusBroker(theName, "REPLACE ME")
+            opts.AddNamedAzureServiceBusBroker(theName, _fixture.ConnectionString, managementConnectionString: _fixture.ManagementConnectionString)
                 .AutoProvision().AutoPurgeOnStartup();
 
             opts.PublishAllMessages()
@@ -116,7 +120,7 @@ public class end_to_end_with_named_broker
         using var receiver = WolverineHost.For(opts =>
         {
             opts.ServiceName = "Receiver";
-            opts.UseAzureServiceBusTesting().AutoProvision();
+            opts.UseAzureServiceBus(_fixture.ConnectionString, managementConnectionString: _fixture.ManagementConnectionString).AutoProvision();
 
             opts.ListenToAzureServiceBusQueue(queueName).Named(queueName);
             

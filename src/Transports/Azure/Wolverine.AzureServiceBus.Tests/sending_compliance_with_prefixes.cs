@@ -1,27 +1,29 @@
 using JasperFx.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Shouldly;
-using Wolverine.ComplianceTests.Compliance;
 using Wolverine.AzureServiceBus.Internal;
+using Wolverine.AzureServiceBus.Tests.Fixtures;
+using Wolverine.ComplianceTests.Compliance;
 using Wolverine.Runtime;
 using Xunit;
 
 namespace Wolverine.AzureServiceBus.Tests;
 
-public class PrefixedComplianceFixture : TransportComplianceFixture, IAsyncLifetime
+public class PrefixedComplianceFixture : AzureServiceBusTransportComplianceFixture
 {
     public PrefixedComplianceFixture() : base(new Uri("asb://queue/foo.buffered-receiver"), 120)
     {
     }
 
-    public async Task InitializeAsync()
+    public override async Task InitializeAsync()
     {
+        await base.InitializeAsync();
         var queueName = Guid.NewGuid().ToString();
         OutboundAddress = new Uri("asb://queue/foo." + queueName);
 
         await SenderIs(opts =>
         {
-            opts.UseAzureServiceBusTesting()
+            opts.UseAzureServiceBus(ConnectionString, managementConnectionString: ManagementConnectionString)
                 .PrefixIdentifiers("foo")
                 .AutoProvision();
 
@@ -29,17 +31,12 @@ public class PrefixedComplianceFixture : TransportComplianceFixture, IAsyncLifet
 
         await ReceiverIs(opts =>
         {
-            opts.UseAzureServiceBusTesting()
+            opts.UseAzureServiceBus(ConnectionString, managementConnectionString: ManagementConnectionString)
                 .PrefixIdentifiers("foo")
                 .AutoProvision();
 
             opts.ListenToAzureServiceBusQueue(queueName, q => q.Options.AutoDeleteOnIdle = 5.Minutes()).Named("receiver");
         });
-    }
-
-    public Task DisposeAsync()
-    {
-        return Task.CompletedTask;
     }
 }
 

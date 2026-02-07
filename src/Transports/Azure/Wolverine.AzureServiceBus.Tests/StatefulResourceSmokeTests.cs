@@ -3,10 +3,12 @@ using Microsoft.Extensions.Hosting;
 using JasperFx;
 using Shouldly;
 using Xunit;
+using Wolverine.AzureServiceBus.Tests.Fixtures;
 
 namespace Wolverine.AzureServiceBus.Tests;
 
-public class StatefulResourceSmokeTests
+[Collection(nameof(AzureServiceBusE2E))]
+public class StatefulResourceSmokeTests(AzureServiceBusE2EFixture fixture)
 {
     private IHostBuilder ConfigureBuilder(bool autoProvision, int starting = 1)
     {
@@ -15,11 +17,12 @@ public class StatefulResourceSmokeTests
             {
                 if (autoProvision)
                 {
-                    opts.UseAzureServiceBusTesting().AutoProvision();
+                    opts.UseAzureServiceBus(fixture.ConnectionString, managementConnectionString: fixture.ManagementConnectionString)
+                        .AutoProvision();
                 }
                 else
                 {
-                    opts.UseAzureServiceBusTesting();
+                    opts.UseAzureServiceBus(fixture.ConnectionString);
                 }
 
                 opts.PublishMessage<SRMessage1>()

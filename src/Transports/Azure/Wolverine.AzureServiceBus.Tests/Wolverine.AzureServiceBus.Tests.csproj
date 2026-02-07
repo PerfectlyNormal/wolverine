@@ -6,16 +6,17 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
-        <PackageReference Include="xunit" Version="2.9.0"/>
+        <PackageReference Include="Testcontainers.ServiceBus" Version="4.10.0" />
+        <PackageReference Include="xunit" Version="2.9.0" />
         <PackageReference Include="GitHubActionsTestLogger" Version="2.4.1" PrivateAssets="All" />
-        <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" PrivateAssets="All"/>
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" PrivateAssets="All" />
         <PackageReference Include="coverlet.collector" Version="6.0.4" PrivateAssets="All" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\Persistence\Wolverine.Marten\Wolverine.Marten.csproj"/>
+        <ProjectReference Include="..\..\..\Persistence\Wolverine.Marten\Wolverine.Marten.csproj" />
         <ProjectReference Include="..\..\..\Testing\Wolverine.ComplianceTests\Wolverine.ComplianceTests.csproj" />
-        <ProjectReference Include="..\Wolverine.AzureServiceBus\Wolverine.AzureServiceBus.csproj"/>
+        <ProjectReference Include="..\Wolverine.AzureServiceBus\Wolverine.AzureServiceBus.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -25,6 +26,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="$(SolutionDir)xunit.runner.json" CopyToOutputDirectory="PreserveNewest"/>
+        <Content Include="$(SolutionDir)xunit.runner.json" CopyToOutputDirectory="PreserveNewest" />
     </ItemGroup>
 </Project>

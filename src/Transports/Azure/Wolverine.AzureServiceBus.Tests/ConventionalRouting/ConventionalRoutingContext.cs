@@ -1,13 +1,16 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Shouldly;
+using Wolverine.AzureServiceBus.Tests.Fixtures;
 using Wolverine.ComplianceTests;
 using Wolverine.Runtime;
 using Wolverine.Runtime.Routing;
+using Xunit;
 
 namespace Wolverine.AzureServiceBus.Tests.ConventionalRouting;
 
-public abstract class ConventionalRoutingContext : IDisposable
+[Collection(nameof(AzureServiceBusE2E))]
+public abstract class ConventionalRoutingContext(AzureServiceBusE2EFixture fixture) : IDisposable
 {
     private IHost _host;
 
@@ -16,7 +19,8 @@ public abstract class ConventionalRoutingContext : IDisposable
         get
         {
             _host ??= WolverineHost.For(opts =>
-                opts.UseAzureServiceBusTesting().UseConventionalRouting().AutoProvision().AutoPurgeOnStartup());
+                opts.UseAzureServiceBus(fixture.ConnectionString, managementConnectionString: fixture.ManagementConnectionString)
+                    .UseConventionalRouting().AutoProvision().AutoPurgeOnStartup());
 
             return _host.Services.GetRequiredService<IWolverineRuntime>();
         }
@@ -32,7 +36,8 @@ public abstract class ConventionalRoutingContext : IDisposable
         _host = Host.CreateDefaultBuilder()
             .UseWolverine(opts =>
             {
-                opts.UseAzureServiceBusTesting().UseConventionalRouting(configure).AutoProvision()
+                opts.UseAzureServiceBus(fixture.ConnectionString, managementConnectionString: fixture.ManagementConnectionString)
+                    .UseConventionalRouting(configure).AutoProvision()
                     .AutoPurgeOnStartup();
             }).Start();
     }

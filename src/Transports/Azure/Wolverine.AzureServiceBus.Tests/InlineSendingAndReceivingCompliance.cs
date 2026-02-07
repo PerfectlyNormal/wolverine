@@ -1,29 +1,31 @@
 using JasperFx.Core;
+using Wolverine.AzureServiceBus.Tests.Fixtures;
 using Wolverine.ComplianceTests.Compliance;
 using Xunit;
 
 namespace Wolverine.AzureServiceBus.Tests;
 
-public class InlineComplianceFixture : TransportComplianceFixture, IAsyncLifetime
+public class InlineComplianceFixture : AzureServiceBusTransportComplianceFixture
 {
     public InlineComplianceFixture() : base(new Uri("asb://queue/inline-receiver"), 120)
     {
     }
 
-    public async Task InitializeAsync()
+    public override async Task InitializeAsync()
     {
+        await base.InitializeAsync();
         var queueName = Guid.NewGuid().ToString();
         OutboundAddress = new Uri("asb://queue/" + queueName);
 
         await SenderIs(opts =>
         {
-            opts.UseAzureServiceBusTesting()
+            opts.UseAzureServiceBus(ConnectionString, managementConnectionString: ManagementConnectionString)
                 .AutoProvision();
         });
 
         await ReceiverIs(opts =>
         {
-            opts.UseAzureServiceBusTesting()
+            opts.UseAzureServiceBus(ConnectionString, managementConnectionString: ManagementConnectionString)
                 .AutoProvision();
 
             #region sample_using_process_inline
@@ -34,11 +36,6 @@ public class InlineComplianceFixture : TransportComplianceFixture, IAsyncLifetim
 
             #endregion
         });
-    }
-
-    public Task DisposeAsync()
-    {
-        return Task.CompletedTask;
     }
 }
 
