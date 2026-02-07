@@ -5,7 +5,6 @@ using Wolverine.Nats.Tests.Helpers;
 using Wolverine.Runtime.Routing;
 using Wolverine.Tracking;
 using Xunit;
-using Xunit;
 
 namespace Wolverine.Nats.Tests;
 

@@ -14,7 +14,7 @@ public class end_to_end(AzureServiceBusE2EFixture fixture) : IAsyncLifetime
 {
     private IHost _host;
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         #region sample_using_azure_service_bus_session_identifiers
 
@@ -64,7 +64,7 @@ public class end_to_end(AzureServiceBusE2EFixture fixture) : IAsyncLifetime
         #endregion
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await _host.StopAsync();
     }

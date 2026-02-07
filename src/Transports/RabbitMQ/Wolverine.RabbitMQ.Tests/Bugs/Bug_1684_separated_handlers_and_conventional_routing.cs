@@ -4,7 +4,6 @@ using Wolverine.Attributes;
 using Wolverine.Runtime;
 using Wolverine.Tracking;
 using Xunit;
-using Xunit;
 
 namespace Wolverine.RabbitMQ.Tests.Bugs;
 

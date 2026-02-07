@@ -5,7 +5,6 @@ using Wolverine.AzureServiceBus.Tests.Fixtures;
 using Wolverine.ComplianceTests;
 using Wolverine.Postgresql;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Wolverine.AzureServiceBus.Tests;
 

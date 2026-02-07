@@ -6,7 +6,6 @@ using StackExchange.Redis;
 using Wolverine.Redis.Internal;
 using Wolverine.Runtime;
 using Xunit;
-using Xunit;
 
 namespace Wolverine.Redis.Tests;
 

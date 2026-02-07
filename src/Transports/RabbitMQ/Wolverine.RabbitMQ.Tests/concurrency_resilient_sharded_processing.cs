@@ -9,7 +9,6 @@ using Wolverine.Configuration;
 using Wolverine.Marten;
 using Wolverine.Tracking;
 using Xunit;
-using Xunit;
 
 namespace Wolverine.RabbitMQ.Tests;
 

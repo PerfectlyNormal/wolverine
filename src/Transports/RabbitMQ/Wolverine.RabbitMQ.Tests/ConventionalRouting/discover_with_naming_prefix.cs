@@ -3,7 +3,6 @@ using Microsoft.Extensions.Hosting;
 using Shouldly;
 using Wolverine.Runtime;
 using Xunit;
-using Xunit;
 
 namespace Wolverine.RabbitMQ.Tests.ConventionalRouting;
 

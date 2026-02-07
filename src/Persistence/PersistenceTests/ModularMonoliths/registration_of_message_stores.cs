@@ -20,7 +20,6 @@ using Wolverine.SqlServer;
 using Wolverine.SqlServer.Persistence;
 using Wolverine.Tracking;
 using Xunit;
-using Xunit;
 
 namespace PersistenceTests.ModularMonoliths;
 

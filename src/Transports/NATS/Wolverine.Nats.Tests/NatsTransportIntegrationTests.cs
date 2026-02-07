@@ -6,7 +6,6 @@ using Wolverine.Nats.Tests.Helpers;
 using Wolverine.Runtime;
 using Wolverine.Tracking;
 using Xunit;
-using Xunit;
 using FluentAssertions;
 
 namespace Wolverine.Nats.Tests;

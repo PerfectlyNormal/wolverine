@@ -11,7 +11,6 @@ using Wolverine.Runtime.Serialization;
 using Wolverine.Transports;
 using Wolverine.Util;
 using Xunit;
-using Xunit;
 
 namespace Wolverine.Redis.Tests;
 

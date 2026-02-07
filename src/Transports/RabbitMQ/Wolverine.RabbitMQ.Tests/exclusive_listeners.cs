@@ -14,7 +14,6 @@ using Wolverine.Tracking;
 using Wolverine.Transports.Tcp;
 using Wolverine.Util;
 using Xunit;
-using Xunit;
 
 namespace Wolverine.RabbitMQ.Tests;
 

@@ -3,7 +3,6 @@ using Microsoft.Extensions.Logging;
 using Wolverine.ComplianceTests;
 using Wolverine.Runtime.Handlers;
 using Xunit;
-using Xunit;
 
 namespace CoreTests.Compilation;
 

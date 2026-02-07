@@ -8,7 +8,6 @@ using Wolverine.Redis.Internal;
 using Wolverine.Runtime;
 using Wolverine.Tracking;
 using Xunit;
-using Xunit;
 
 namespace Wolverine.Redis.Tests;
 

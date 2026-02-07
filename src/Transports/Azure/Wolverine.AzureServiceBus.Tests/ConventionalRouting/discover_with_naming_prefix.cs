@@ -4,7 +4,6 @@ using Shouldly;
 using Wolverine.AzureServiceBus.Tests.Fixtures;
 using Wolverine.Runtime;
 using Xunit;
-using Xunit;
 
 namespace Wolverine.AzureServiceBus.Tests.ConventionalRouting;
 

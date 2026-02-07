@@ -9,7 +9,6 @@ using Wolverine.Runtime;
 using Wolverine.Runtime.Serialization;
 using Wolverine.Util;
 using Xunit;
-using Xunit;
 
 namespace Wolverine.Redis.Tests;
 

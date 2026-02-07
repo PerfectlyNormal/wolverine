@@ -17,7 +17,6 @@ using Wolverine.RabbitMQ;
 using Wolverine.SqlServer;
 using Wolverine.Tracking;
 using Xunit;
-using Xunit;
 
 namespace Wolverine.RabbitMQ.Tests.Bugs;
 

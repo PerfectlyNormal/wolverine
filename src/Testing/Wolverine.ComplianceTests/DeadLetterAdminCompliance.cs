@@ -10,7 +10,6 @@ using Wolverine.Tracking;
 using Wolverine.Transports;
 using Wolverine.Util;
 using Xunit;
-using Xunit;
 
 namespace Wolverine.ComplianceTests;
 

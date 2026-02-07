@@ -5,7 +5,6 @@ using Microsoft.Extensions.Hosting;
 using Wolverine.Persistence.Sagas;
 using Wolverine.Tracking;
 using Xunit;
-using Xunit;
 
 namespace CoreTests.Bugs;
 

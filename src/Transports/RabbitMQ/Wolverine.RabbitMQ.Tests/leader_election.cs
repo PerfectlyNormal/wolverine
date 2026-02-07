@@ -7,7 +7,6 @@ using Wolverine.Postgresql;
 using Wolverine.Runtime.Agents;
 using Wolverine.Tracking;
 using Xunit;
-using Xunit;
 
 namespace Wolverine.RabbitMQ.Tests;
 

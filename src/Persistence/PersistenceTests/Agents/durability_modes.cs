@@ -17,7 +17,6 @@ using Wolverine.Transports;
 using Wolverine.Transports.Tcp;
 using Wolverine.Util;
 using Xunit;
-using Xunit;
 
 namespace PersistenceTests.Agents;
 

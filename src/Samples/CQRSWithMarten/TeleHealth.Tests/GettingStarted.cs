@@ -3,7 +3,6 @@ using Marten.Events.Projections;
 using Shouldly;
 using TeleHealth.Common;
 using Xunit;
-using Xunit;
 
 namespace TeleHealth.Tests;
 

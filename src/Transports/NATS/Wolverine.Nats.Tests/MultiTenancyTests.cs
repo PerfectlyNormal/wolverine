@@ -9,7 +9,6 @@ using Wolverine.Nats.Tests.Helpers;
 using Wolverine.Tracking;
 using Wolverine.Transports.Sending;
 using Xunit;
-using Xunit;
 
 namespace Wolverine.Nats.Tests;
 

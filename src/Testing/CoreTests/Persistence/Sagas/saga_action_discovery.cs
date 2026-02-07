@@ -4,7 +4,6 @@ using Wolverine.Attributes;
 using Wolverine.ComplianceTests.Compliance;
 using Wolverine.Runtime.Handlers;
 using Xunit;
-using Xunit;
 
 namespace CoreTests.Persistence.Sagas;
 

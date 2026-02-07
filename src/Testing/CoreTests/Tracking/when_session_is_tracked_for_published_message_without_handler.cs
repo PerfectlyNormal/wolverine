@@ -4,7 +4,6 @@ using Microsoft.Extensions.Hosting;
 using Wolverine.Runtime;
 using Wolverine.Tracking;
 using Xunit;
-using Xunit;
 
 namespace CoreTests.Tracking;
 
