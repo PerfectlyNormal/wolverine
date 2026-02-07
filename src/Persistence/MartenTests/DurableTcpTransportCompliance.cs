@@ -15,7 +15,7 @@ public class DurableTcpTransportFixture : TransportComplianceFixture, IAsyncLife
     {
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         OutboundAddress = $"tcp://localhost:{PortFinder.GetAvailablePort()}/incoming/durable".ToUri();
 
@@ -47,7 +47,7 @@ public class DurableTcpTransportFixture : TransportComplianceFixture, IAsyncLife
         });
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await DisposeAsync();
     }

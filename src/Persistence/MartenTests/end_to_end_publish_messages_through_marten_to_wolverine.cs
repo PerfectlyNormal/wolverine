@@ -295,7 +295,7 @@ public class
 {
     private IHost _host;
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         _host = await Host.CreateDefaultBuilder()
             .UseWolverine(opts =>
@@ -318,9 +318,9 @@ public class
             }).StartAsync();
     }
 
-    public Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
-        return _host.StopAsync();
+        await _host.StopAsync();
     }
     
     [Fact]

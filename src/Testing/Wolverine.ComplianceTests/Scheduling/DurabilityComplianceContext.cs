@@ -20,7 +20,7 @@ public abstract class DurabilityComplianceContext<TTriggerHandler, TItemCreatedH
     private IHost theReceiver;
     private IHost theSender;
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         var receiverPort = PortFinder.GetAvailablePort();
         var senderPort = PortFinder.GetAvailablePort();
@@ -76,7 +76,7 @@ public abstract class DurabilityComplianceContext<TTriggerHandler, TItemCreatedH
         await buildAdditionalObjects();
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         if (theReceiver != null)
         {

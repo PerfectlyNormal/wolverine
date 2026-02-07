@@ -9,7 +9,7 @@ public class TopicsComplianceFixture : TransportComplianceFixture, IAsyncLifetim
     {
     }
 
-    public async Task InitializeAsync()
+    public override async ValueTask InitializeAsync()
     {
         await SenderIs(opts =>
         {

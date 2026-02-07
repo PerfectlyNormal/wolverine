@@ -29,7 +29,7 @@ public class using_add_dbcontext_with_wolverine_integration : IAsyncLifetime
 {
     private IHost _host;
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         _host = await Host.CreateDefaultBuilder()
             .UseWolverine(opts =>
@@ -45,7 +45,7 @@ public class using_add_dbcontext_with_wolverine_integration : IAsyncLifetime
         await _host.RebuildAllEnvelopeStorageAsync();
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await _host.StopAsync();
         _host.Dispose();

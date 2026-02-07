@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Hosting;
 using Wolverine.Tracking;
 using Xunit;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace Wolverine.AzureServiceBus.Tests;
 

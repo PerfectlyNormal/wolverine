@@ -1,4 +1,4 @@
-﻿using IntegrationTests;
+using IntegrationTests;
 using JasperFx.Core;
 using Marten;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -63,7 +63,7 @@ public class MartenBackedListenerContext : PostgresqlContext, IDisposable, IAsyn
         theStore = DocumentStore.For(opts => { opts.Connection(Servers.PostgresConnectionString); });
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         theSettings = new DurabilitySettings();
 
@@ -84,10 +84,10 @@ public class MartenBackedListenerContext : PostgresqlContext, IDisposable, IAsyn
         theReceiver = new DurableReceiver(new LocalQueue("temp"), runtime, runtime.Pipeline);
     }
 
-    public Task DisposeAsync()
+    public ValueTask DisposeAsync()
     {
         Dispose();
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 
     public void Dispose()

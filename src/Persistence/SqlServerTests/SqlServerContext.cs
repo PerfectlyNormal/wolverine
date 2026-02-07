@@ -1,4 +1,4 @@
-﻿using IntegrationTests;
+using IntegrationTests;
 using Microsoft.Extensions.Logging.Abstractions;
 using Wolverine;
 using Wolverine.RDBMS;
@@ -11,7 +11,7 @@ public abstract class SqlServerContext : IAsyncLifetime
 {
     protected SqlServerMessageStore thePersistence;
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         var databaseSettings = new DatabaseSettings{ConnectionString = Servers.SqlServerConnectionString };
         thePersistence = new SqlServerMessageStore(
@@ -21,13 +21,13 @@ public abstract class SqlServerContext : IAsyncLifetime
         await initialize();
     }
 
-    public virtual Task DisposeAsync()
+    public virtual ValueTask DisposeAsync()
     {
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 
-    protected virtual Task initialize()
+    protected virtual ValueTask initialize()
     {
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 }

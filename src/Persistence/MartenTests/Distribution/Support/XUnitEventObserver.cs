@@ -4,7 +4,7 @@ using Microsoft.Extensions.Hosting;
 using Wolverine.Logging;
 using Wolverine.Runtime;
 using Wolverine.Runtime.Agents;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace MartenTests.Distribution.Support;
 

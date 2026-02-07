@@ -15,7 +15,7 @@ public class SqlTransportDurableFixture : TransportComplianceFixture, IAsyncLife
     {
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         await SenderIs(opts =>
         {
@@ -43,7 +43,7 @@ public class SqlTransportDurableFixture : TransportComplianceFixture, IAsyncLife
         });
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await DisposeAsync();
     }
@@ -57,7 +57,7 @@ public class SqlTransportBufferedFixture : TransportComplianceFixture, IAsyncLif
     {
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         await SenderIs(opts =>
         {
@@ -91,7 +91,7 @@ public class SqlTransportBufferedFixture : TransportComplianceFixture, IAsyncLif
         });
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await DisposeAsync();
     }

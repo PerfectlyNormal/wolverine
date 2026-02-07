@@ -14,7 +14,7 @@ public class conjoined_tenancy : PostgresqlContext, IAsyncLifetime
 {
     private IHost _host;
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         #region sample_setup_with_conjoined_tenancy
 
@@ -35,7 +35,7 @@ public class conjoined_tenancy : PostgresqlContext, IAsyncLifetime
         await store.Advanced.Clean.DeleteDocumentsByTypeAsync(typeof(CreateTenantDocument));
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await _host.StopAsync();
         _host.Dispose();

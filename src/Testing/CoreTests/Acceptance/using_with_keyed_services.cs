@@ -11,7 +11,7 @@ public class using_with_keyed_services : IAsyncLifetime
 {
     private IHost _host;
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         _host = await Host.CreateDefaultBuilder()
             .UseWolverine(opts =>
@@ -27,9 +27,9 @@ public class using_with_keyed_services : IAsyncLifetime
             }).StartAsync();
     }
 
-    public Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
-        return _host.StopAsync();
+        await _host.StopAsync();
     }
 
     [Fact]
@@ -65,7 +65,7 @@ public class using_with_keyed_services_and_lamar : IAsyncLifetime
 {
     private IHost _host;
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         _host = await Host.CreateDefaultBuilder()
             .UseLamar()
@@ -82,9 +82,9 @@ public class using_with_keyed_services_and_lamar : IAsyncLifetime
             }).StartAsync();
     }
 
-    public Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
-        return _host.StopAsync();
+        await _host.StopAsync();
     }
 
     [Fact]

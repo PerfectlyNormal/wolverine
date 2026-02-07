@@ -6,7 +6,7 @@ using Wolverine.Nats.Tests.Helpers;
 using Wolverine.Runtime;
 using Wolverine.Tracking;
 using Xunit;
-using Xunit.Abstractions;
+using Xunit;
 using FluentAssertions;
 
 namespace Wolverine.Nats.Tests;
@@ -26,7 +26,7 @@ public class NatsTransportIntegrationTests : IAsyncLifetime
         _output = output;
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         var natsUrl = Environment.GetEnvironmentVariable("NATS_URL");
 
@@ -69,7 +69,7 @@ public class NatsTransportIntegrationTests : IAsyncLifetime
             .StartAsync();
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         if (_sender != null)
             await _sender.StopAsync();

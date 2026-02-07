@@ -15,7 +15,7 @@ public class InlineComplianceFixture : TransportComplianceFixture, IAsyncLifetim
     {
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         var number = ++Number;
 
@@ -42,7 +42,7 @@ public class InlineComplianceFixture : TransportComplianceFixture, IAsyncLifetim
         });
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await DisposeAsync();
     }

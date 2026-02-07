@@ -13,7 +13,7 @@ public class end_to_end : IAsyncLifetime
 {
     private IHost _host;
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         #region sample_using_azure_service_bus_session_identifiers
 
@@ -63,7 +63,7 @@ public class end_to_end : IAsyncLifetime
         #endregion
     }
 
-    public Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         return _host.StopAsync();
     }

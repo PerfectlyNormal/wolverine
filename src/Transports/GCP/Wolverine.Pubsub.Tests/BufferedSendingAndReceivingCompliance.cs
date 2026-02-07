@@ -14,7 +14,7 @@ public class BufferedComplianceFixture : TransportComplianceFixture, IAsyncLifet
     {
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         var id = Guid.NewGuid().ToString();
 

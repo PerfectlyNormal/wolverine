@@ -7,7 +7,7 @@ using Wolverine.RabbitMQ.Internal;
 using Wolverine.Runtime;
 using Wolverine.Tracking;
 using Xunit;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace Wolverine.RabbitMQ.Tests;
 

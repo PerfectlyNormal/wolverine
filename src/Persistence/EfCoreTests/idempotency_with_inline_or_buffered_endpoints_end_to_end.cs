@@ -25,7 +25,7 @@ namespace EfCoreTests;
 
 public class idempotency_with_inline_or_buffered_endpoints_end_to_end : IAsyncLifetime
 {
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         await buildSqlServer();
     }
@@ -50,9 +50,9 @@ public class idempotency_with_inline_or_buffered_endpoints_end_to_end : IAsyncLi
         await conn.CloseAsync();
     }
 
-    public Task DisposeAsync()
+    public ValueTask DisposeAsync()
     {
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 
     [Theory]

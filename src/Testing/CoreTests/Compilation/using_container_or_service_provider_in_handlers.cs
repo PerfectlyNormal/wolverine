@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Wolverine.Attributes;
 using Wolverine.ComplianceTests;
 using Xunit;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace CoreTests.Compilation;
 

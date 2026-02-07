@@ -2,7 +2,7 @@ using JasperFx.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Wolverine.ComplianceTests;
 using Wolverine.ComplianceTests.Compliance;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace Wolverine.AmazonSqs.Tests;
 

@@ -11,7 +11,7 @@ using Wolverine.Transports;
 using Wolverine.Transports.Sending;
 using Wolverine.Util;
 using Xunit;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace Wolverine.Redis.Tests;
 
@@ -37,7 +37,7 @@ public class RedisSenderProtocolTests : IAsyncLifetime
         _output = output;
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         _streamKey = $"sender-protocol-test-{Guid.NewGuid():N}";
         
@@ -57,7 +57,7 @@ public class RedisSenderProtocolTests : IAsyncLifetime
         await _database.KeyDeleteAsync($"{_streamKey}:scheduled");
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         if (_database != null)
         {

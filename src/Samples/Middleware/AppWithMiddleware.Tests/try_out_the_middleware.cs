@@ -1,4 +1,4 @@
-﻿using Alba;
+using Alba;
 using JasperFx.Core;
 using Marten;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,7 +7,7 @@ using JasperFx;
 using JasperFx.CommandLine;
 using Shouldly;
 using Wolverine;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace AppWithMiddleware.Tests;
 
@@ -108,7 +108,7 @@ public class when_the_account_is_overdrawn : IAsyncLifetime
     // I happen to like NSubstitute for mocking or dynamic stubs
     private readonly IDocumentSession theDocumentSession = Substitute.For<IDocumentSession>();
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         var command = new DebitAccount(theAccount.Id, 1200);
         await DebitAccountHandler.Handle(command, theAccount, theDocumentSession, theContext);
@@ -139,9 +139,9 @@ public class when_the_account_is_overdrawn : IAsyncLifetime
             .ScheduleDelay.ShouldBe(10.Days());
     }
 
-    public Task DisposeAsync()
+    public ValueTask DisposeAsync()
     {
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 }
 

@@ -14,7 +14,7 @@ public class BufferedComplianceFixture : TransportComplianceFixture, IAsyncLifet
     {
     }
 
-    public async Task InitializeAsync()
+    public override async ValueTask InitializeAsync()
     {
         var queueName = Guid.NewGuid().ToString();
         OutboundAddress = new Uri("asb://queue/" + queueName);

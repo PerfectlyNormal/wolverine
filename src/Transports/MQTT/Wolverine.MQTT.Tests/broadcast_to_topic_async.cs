@@ -5,7 +5,7 @@ using Shouldly;
 using Wolverine.ComplianceTests;
 using Wolverine.Tracking;
 using Wolverine.Util;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace Wolverine.MQTT.Tests;
 
@@ -20,7 +20,7 @@ public class broadcast_to_topic_async : IAsyncLifetime
         _output = output;
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         var port = PortFinder.GetAvailablePort();
 
@@ -61,7 +61,7 @@ public class broadcast_to_topic_async : IAsyncLifetime
 
     public LocalMqttBroker Broker { get; set; }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await Broker.StopAsync();
         await _sender.StopAsync();

@@ -11,7 +11,7 @@ using Wolverine.Persistence.Durability;
 using Wolverine.SqlServer;
 using Wolverine.SqlServer.Persistence;
 using Wolverine.RDBMS;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace SqlServerTests.MultiTenancy;
 

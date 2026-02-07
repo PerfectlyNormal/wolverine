@@ -18,7 +18,7 @@ public class DurableComplianceFixture : TransportComplianceFixture, IAsyncLifeti
     {
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         var id = Guid.NewGuid().ToString();
 

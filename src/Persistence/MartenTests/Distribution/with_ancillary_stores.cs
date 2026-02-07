@@ -21,7 +21,7 @@ using Wolverine.MessagePack;
 using Wolverine.Runtime.Agents;
 using Wolverine.Tracking;
 using Wolverine.Transports.SharedMemory;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace MartenTests.Distribution;
 
@@ -47,14 +47,14 @@ public class with_ancillary_stores : IAsyncLifetime
         await conn.CloseAsync();
     }
     
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         await dropSchema();
 
         theOriginalHost = await startHostAsync();
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         _hosts.Reverse();
         foreach (var host in _hosts.ToArray())

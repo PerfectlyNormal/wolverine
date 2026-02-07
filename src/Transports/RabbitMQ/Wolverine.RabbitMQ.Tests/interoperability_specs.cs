@@ -13,7 +13,7 @@ public class interoperability_specs : IAsyncLifetime
     private string theQueueName;
     private IHost _host;
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         theQueueName = RabbitTesting.NextQueueName();
 
@@ -27,7 +27,7 @@ public class interoperability_specs : IAsyncLifetime
             }).StartAsync();
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await _host.StopAsync();
         _host.Dispose();

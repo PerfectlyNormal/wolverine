@@ -2,7 +2,7 @@ using JasperFx.Core;
 using Newtonsoft.Json;
 using Shouldly;
 using Wolverine;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace MetricsTests;
 

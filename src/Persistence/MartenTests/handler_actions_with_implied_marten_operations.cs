@@ -1,4 +1,4 @@
-﻿using IntegrationTests;
+using IntegrationTests;
 using Marten;
 using Marten.Exceptions;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,7 +15,7 @@ public class handler_actions_with_implied_marten_operations : PostgresqlContext,
     private IHost _host;
     private IDocumentStore _store;
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         _host = await Host.CreateDefaultBuilder()
             .UseWolverine(opts =>
@@ -37,7 +37,7 @@ public class handler_actions_with_implied_marten_operations : PostgresqlContext,
         await _store.Advanced.Clean.DeleteDocumentsByTypeAsync(typeof(StringIdDocument));
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await _host.StopAsync();
         _host.Dispose();

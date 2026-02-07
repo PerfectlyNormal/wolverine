@@ -18,7 +18,7 @@ public class handler_actions_with_returned_StartStream : PostgresqlContext, IAsy
     private IHost _host;
     private IDocumentStore _store;
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         _host = await Host.CreateDefaultBuilder()
             .UseWolverine(opts =>
@@ -37,7 +37,7 @@ public class handler_actions_with_returned_StartStream : PostgresqlContext, IAsy
         await _store.Advanced.Clean.DeleteDocumentsByTypeAsync(typeof(NamedDocument));
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await _host.StopAsync();
         _host.Dispose();
@@ -63,7 +63,7 @@ public class start_stream_by_string_from_return_value : PostgresqlContext, IAsyn
     private IHost _host;
     private IDocumentStore _store;
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         _host = await Host.CreateDefaultBuilder()
             .UseWolverine(opts =>
@@ -87,7 +87,7 @@ public class start_stream_by_string_from_return_value : PostgresqlContext, IAsyn
         await _store.Advanced.Clean.DeleteDocumentsByTypeAsync(typeof(NamedDocument));
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await _host.StopAsync();
         _host.Dispose();

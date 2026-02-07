@@ -9,7 +9,7 @@ namespace Wolverine.AzureServiceBus.Tests;
 public class TopicsWithCustomRuleComplianceFixture()
     : TransportComplianceFixture(new Uri("asb://topic/topic1"), 120), IAsyncLifetime
 {
-    public async Task InitializeAsync()
+    public override async ValueTask InitializeAsync()
     {
         await SenderIs(opts =>
         {

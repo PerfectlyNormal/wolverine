@@ -23,7 +23,7 @@ public class message_store_initialization_and_configuration : SqlServerContext, 
 {
     private IHost _host;
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         await dropSchema();
 
@@ -44,7 +44,7 @@ public class message_store_initialization_and_configuration : SqlServerContext, 
         await conn.CloseAsync();
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         if (_host != null)
         {

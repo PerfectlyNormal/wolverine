@@ -14,7 +14,7 @@ public class response_queue_mechanics : IAsyncLifetime
     private RabbitMqQueue theEndpoint;
     private string theExpectedResponseQueueName;
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         _host = await Host.CreateDefaultBuilder()
             .UseWolverine(opts =>
@@ -32,7 +32,7 @@ public class response_queue_mechanics : IAsyncLifetime
             .ShouldBeOfType<RabbitMqQueue>();
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await _host.StopAsync();
     }

@@ -1,4 +1,4 @@
-﻿using Amazon.Runtime;
+using Amazon.Runtime;
 using Amazon.SQS;
 using JasperFx.Core;
 using Microsoft.Extensions.Hosting;
@@ -14,7 +14,7 @@ namespace Wolverine.AmazonSqs.Tests.RawJson
         private IHost _sender;
         private string theQueueName;
 
-        public async Task InitializeAsync()
+        public async ValueTask InitializeAsync()
         {
             theQueueName = "receive_native_json_buffered";
             _host = await Host.CreateDefaultBuilder()
@@ -109,7 +109,7 @@ namespace Wolverine.AmazonSqs.Tests.RawJson
             ((int)sendMessageResponse.HttpStatusCode).ShouldBeLessThan(300, customMessage: "Ensure Success StatusCode");
         }
 
-        public async Task DisposeAsync()
+        public async ValueTask DisposeAsync()
         {
             await _host.StopAsync();
             await _sender.StopAsync();

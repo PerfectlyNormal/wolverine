@@ -12,7 +12,7 @@ public class end_to_end_with_CloudEvents : IAsyncLifetime
 {
     private IHost _host;
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         _host = await Host.CreateDefaultBuilder()
             .UseWolverine(opts =>
@@ -48,9 +48,9 @@ public class end_to_end_with_CloudEvents : IAsyncLifetime
             }).StartAsync();
     }
 
-    public Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
-        return _host.StopAsync();
+        await _host.StopAsync();
     }
 
     [Fact]

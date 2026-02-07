@@ -34,7 +34,7 @@ using Wolverine.RabbitMQ;
 using Wolverine.RabbitMQ.Internal;
 using Wolverine.Transports.Sending;
 using Xunit;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace Wolverine.RabbitMQ.Tests.Bugs;
 

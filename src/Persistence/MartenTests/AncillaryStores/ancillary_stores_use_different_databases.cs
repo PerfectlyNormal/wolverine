@@ -26,7 +26,7 @@ public class ancillary_stores_use_different_databases : IAsyncLifetime
     private string thingsConnectionString;
     private IAgentFamily theStores;
     
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         await using var conn = new NpgsqlConnection(Servers.PostgresConnectionString);
         await conn.OpenAsync();
@@ -69,7 +69,7 @@ public class ancillary_stores_use_different_databases : IAsyncLifetime
         theStores = theHost.GetRuntime().Stores;
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await theHost.StopAsync();
         theHost.Dispose();

@@ -3,7 +3,7 @@ using Microsoft.Extensions.Hosting;
 using Shouldly;
 using Wolverine.Runtime;
 using Xunit;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace Wolverine.Pubsub.Tests.ConventionalRouting;
 

@@ -22,7 +22,7 @@ using Wolverine.RDBMS;
 using Wolverine.RDBMS.MultiTenancy;
 using Wolverine.Runtime.Agents;
 using Wolverine.Tracking;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace MartenTests.AncillaryStores;
 
@@ -40,7 +40,7 @@ public class bootstrapping_ancillary_marten_stores_with_wolverine : IAsyncLifeti
         _output = output;
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         await using var conn = new NpgsqlConnection(Servers.PostgresConnectionString);
         await conn.OpenAsync();
@@ -109,7 +109,7 @@ public class bootstrapping_ancillary_marten_stores_with_wolverine : IAsyncLifeti
         theFamily = theHost.GetRuntime().Stores;
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await theHost.StopAsync();
         theHost.Dispose();

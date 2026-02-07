@@ -4,7 +4,7 @@ using Microsoft.Extensions.Hosting;
 using JasperFx.Resources;
 using Shouldly;
 using Wolverine.Tracking;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace Wolverine.Kafka.Tests;
 
@@ -19,7 +19,7 @@ public class broadcast_to_topic_async : IAsyncLifetime
         _output = output;
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
 
         _sender = await Host.CreateDefaultBuilder()
@@ -57,7 +57,7 @@ public class broadcast_to_topic_async : IAsyncLifetime
         received.Color.ShouldBe("blue");
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await _sender.StopAsync();
         await _receiver.StopAsync();

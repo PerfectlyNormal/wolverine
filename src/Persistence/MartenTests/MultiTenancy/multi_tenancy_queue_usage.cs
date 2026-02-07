@@ -46,7 +46,7 @@ public class multi_tenancy_queue_usage : PostgresqlContext, IAsyncLifetime
         return builder.ConnectionString;
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         await using var conn = new NpgsqlConnection(Servers.PostgresConnectionString);
         await conn.OpenAsync();
@@ -151,7 +151,7 @@ public class multi_tenancy_queue_usage : PostgresqlContext, IAsyncLifetime
 
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await _receiver.StopAsync();
         _receiver.Dispose();

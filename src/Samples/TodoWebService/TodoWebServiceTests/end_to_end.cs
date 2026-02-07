@@ -14,7 +14,7 @@ public class end_to_end : IAsyncLifetime
 {
     private IAlbaHost _host;
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         // Sorry folks, this is a hidden trap
         // I blame the AspNetCore team...
@@ -27,9 +27,9 @@ public class end_to_end : IAsyncLifetime
         await store.Advanced.Clean.DeleteAllDocumentsAsync();
     }
 
-    public Task DisposeAsync()
+    public ValueTask DisposeAsync()
     {
-        return _host.DisposeAsync().AsTask();
+        return _host.DisposeAsync();
     }
 
     #region sample_testing_hello_world_for_http

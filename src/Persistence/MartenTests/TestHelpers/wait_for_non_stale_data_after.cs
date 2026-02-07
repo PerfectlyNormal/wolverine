@@ -16,7 +16,7 @@ public class wait_for_non_stale_data_after : IAsyncLifetime
 {
     private IHost _host;
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
 
         _host = await Host.CreateDefaultBuilder()
@@ -52,7 +52,7 @@ public class wait_for_non_stale_data_after : IAsyncLifetime
             }).StartAsync();
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await _host.StopAsync();
     }

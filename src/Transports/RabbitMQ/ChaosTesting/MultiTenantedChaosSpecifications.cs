@@ -1,9 +1,9 @@
-﻿using ChaosTesting.Scripts;
+using ChaosTesting.Scripts;
 using JasperFx.Core;
 using Shouldly;
 using Wolverine.RabbitMQ;
 using Wolverine.RDBMS.MultiTenancy;
-using Xunit.Abstractions;
+using Xunit;
 using MultiTenantedMessageStore = Wolverine.Persistence.Durability.MultiTenantedMessageStore;
 
 namespace ChaosTesting;

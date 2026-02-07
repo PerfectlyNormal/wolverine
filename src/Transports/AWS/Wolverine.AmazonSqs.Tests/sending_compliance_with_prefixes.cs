@@ -14,7 +14,7 @@ public class PrefixedComplianceFixture : TransportComplianceFixture, IAsyncLifet
     {
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         var number = ++Number;
         OutboundAddress = new Uri("sqs://foo-prefix-receiver-" + number);
@@ -40,7 +40,7 @@ public class PrefixedComplianceFixture : TransportComplianceFixture, IAsyncLifet
         });
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await DisposeAsync();
     }

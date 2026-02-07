@@ -38,7 +38,7 @@ public abstract class MultiTenancyContext : SqlServerContext, IAsyncLifetime
 
     protected virtual Task onStartup() => Task.CompletedTask;
 
-    public new async Task DisposeAsync()
+    public new async ValueTask DisposeAsync()
     {
         await theHost.StopAsync();
     }

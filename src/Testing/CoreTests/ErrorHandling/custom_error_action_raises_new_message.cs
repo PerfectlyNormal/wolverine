@@ -15,7 +15,7 @@ public class custom_error_action_raises_new_message_1 : IAsyncLifetime
     private IHost theReceiver;
     private IHost theSender;
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         var senderPort = PortFinder.GetAvailablePort();
         var receiverPort = PortFinder.GetAvailablePort();
@@ -49,7 +49,7 @@ public class custom_error_action_raises_new_message_1 : IAsyncLifetime
         #endregion
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await theReceiver.StopAsync();
         await theSender.StopAsync();
@@ -99,7 +99,7 @@ public class custom_error_action_raises_new_message_2 : IAsyncLifetime
     private IHost theReceiver;
     private IHost theSender;
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         var senderPort = PortFinder.GetAvailablePort();
         var receiverPort = PortFinder.GetAvailablePort();
@@ -127,7 +127,7 @@ public class custom_error_action_raises_new_message_2 : IAsyncLifetime
         #endregion
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await theReceiver.StopAsync();
         await theSender.StopAsync();

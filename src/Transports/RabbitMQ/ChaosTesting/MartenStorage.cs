@@ -1,4 +1,4 @@
-﻿using IntegrationTests;
+using IntegrationTests;
 using JasperFx;
 using JasperFx.Core;
 using Marten;
@@ -84,7 +84,7 @@ public class MultiDatabaseMartenStorageStrategy : IMessageStorageStrategy
     private string tenant2ConnectionString;
     private string tenant3ConnectionString;
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         await using var conn = new NpgsqlConnection(Servers.PostgresConnectionString);
         await conn.OpenAsync();

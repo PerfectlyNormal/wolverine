@@ -13,7 +13,7 @@ public class BufferedComplianceFixture : TransportComplianceFixture, IAsyncLifet
     {
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         var number = Guid.NewGuid().ToString().Replace(".", "-");
 
@@ -36,7 +36,7 @@ public class BufferedComplianceFixture : TransportComplianceFixture, IAsyncLifet
         });
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await DisposeAsync();
     }
