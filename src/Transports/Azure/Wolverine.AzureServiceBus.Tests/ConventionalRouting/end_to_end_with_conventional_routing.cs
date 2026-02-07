@@ -9,7 +9,6 @@ using Wolverine.AzureServiceBus.Tests.Fixtures;
 
 namespace Wolverine.AzureServiceBus.Tests.ConventionalRouting;
 
-[Collection(nameof(AzureServiceBusE2E))]
 public class end_to_end_with_conventional_routing(AzureServiceBusE2EFixture fixture) : IAsyncLifetime
 {
     private IHost _receiver;

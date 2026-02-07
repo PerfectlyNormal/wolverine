@@ -7,7 +7,6 @@ using Xunit;
 
 namespace Wolverine.AzureServiceBus.Tests.ConventionalRouting;
 
-[Collection(nameof(AzureServiceBusE2E))]
 public class discover_with_naming_prefix : IDisposable
 {
     private readonly IHost _host;

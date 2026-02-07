@@ -7,7 +7,6 @@ using Xunit;
 
 namespace Wolverine.AzureServiceBus.Tests;
 
-[Collection(nameof(AzureServiceBusE2E))]
 public class using_native_scheduling(AzureServiceBusE2EFixture fixture)
 {
     [Fact]

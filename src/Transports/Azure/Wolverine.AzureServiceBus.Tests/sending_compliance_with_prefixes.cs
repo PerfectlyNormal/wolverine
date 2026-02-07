@@ -9,21 +9,20 @@ using Xunit;
 
 namespace Wolverine.AzureServiceBus.Tests;
 
-public class PrefixedComplianceFixture : AzureServiceBusTransportComplianceFixture
+public class PrefixedComplianceFixture : TransportComplianceFixture, IAsyncLifetime
 {
     public PrefixedComplianceFixture() : base(new Uri("asb://queue/foo.buffered-receiver"), 120)
     {
     }
 
-    public override async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
-        await base.InitializeAsync();
         var queueName = Guid.NewGuid().ToString();
         OutboundAddress = new Uri("asb://queue/foo." + queueName);
 
         await SenderIs(opts =>
         {
-            opts.UseAzureServiceBus(ConnectionString, managementConnectionString: ManagementConnectionString)
+            opts.UseAzureServiceBus(AzureServiceBusE2EFixture.ServiceBusContainer.GetConnectionString(), managementConnectionString: AzureServiceBusE2EFixture.ServiceBusContainer.GetHttpConnectionString())
                 .PrefixIdentifiers("foo")
                 .AutoProvision();
 
@@ -31,7 +30,7 @@ public class PrefixedComplianceFixture : AzureServiceBusTransportComplianceFixtu
 
         await ReceiverIs(opts =>
         {
-            opts.UseAzureServiceBus(ConnectionString, managementConnectionString: ManagementConnectionString)
+            opts.UseAzureServiceBus(AzureServiceBusE2EFixture.ServiceBusContainer.GetConnectionString(), managementConnectionString: AzureServiceBusE2EFixture.ServiceBusContainer.GetHttpConnectionString())
                 .PrefixIdentifiers("foo")
                 .AutoProvision();
 

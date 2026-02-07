@@ -10,7 +10,6 @@ using Xunit;
 
 namespace Wolverine.AzureServiceBus.Tests.Bugs;
 
-[Collection(nameof(AzureServiceBusE2E))]
 public class Bug_1684_separated_handlers_and_conventional_routing(AzureServiceBusE2EFixture fixture, ITestOutputHelper Output)
 {
     [Fact]

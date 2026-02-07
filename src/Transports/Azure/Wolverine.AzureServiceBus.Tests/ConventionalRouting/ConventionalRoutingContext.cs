@@ -9,7 +9,6 @@ using Xunit;
 
 namespace Wolverine.AzureServiceBus.Tests.ConventionalRouting;
 
-[Collection(nameof(AzureServiceBusE2E))]
 public abstract class ConventionalRoutingContext(AzureServiceBusE2EFixture fixture) : IDisposable
 {
     private IHost _host;

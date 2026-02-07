@@ -5,27 +5,26 @@ using Xunit;
 
 namespace Wolverine.AzureServiceBus.Tests;
 
-public class InlineComplianceFixture : AzureServiceBusTransportComplianceFixture
+public class InlineComplianceFixture : TransportComplianceFixture
 {
     public InlineComplianceFixture() : base(new Uri("asb://queue/inline-receiver"), 120)
     {
     }
 
-    public override async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
-        await base.InitializeAsync();
         var queueName = Guid.NewGuid().ToString();
         OutboundAddress = new Uri("asb://queue/" + queueName);
 
         await SenderIs(opts =>
         {
-            opts.UseAzureServiceBus(ConnectionString, managementConnectionString: ManagementConnectionString)
+            opts.UseAzureServiceBus(AzureServiceBusE2EFixture.ServiceBusContainer.GetConnectionString(), managementConnectionString: AzureServiceBusE2EFixture.ServiceBusContainer.GetHttpConnectionString())
                 .AutoProvision();
         });
 
         await ReceiverIs(opts =>
         {
-            opts.UseAzureServiceBus(ConnectionString, managementConnectionString: ManagementConnectionString)
+            opts.UseAzureServiceBus(AzureServiceBusE2EFixture.ServiceBusContainer.GetConnectionString(), managementConnectionString: AzureServiceBusE2EFixture.ServiceBusContainer.GetHttpConnectionString())
                 .AutoProvision();
 
             #region sample_using_process_inline

@@ -7,7 +7,6 @@ using Wolverine.AzureServiceBus.Tests.Fixtures;
 
 namespace Wolverine.AzureServiceBus.Tests;
 
-[Collection(nameof(AzureServiceBusE2E))]
 public class StatefulResourceSmokeTests(AzureServiceBusE2EFixture fixture)
 {
     private IHostBuilder ConfigureBuilder(bool autoProvision, int starting = 1)

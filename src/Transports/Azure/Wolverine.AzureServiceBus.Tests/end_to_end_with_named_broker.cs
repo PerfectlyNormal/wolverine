@@ -14,7 +14,6 @@ using Xunit;
 
 namespace Wolverine.AzureServiceBus.Tests;
 
-[Collection(nameof(AzureServiceBusE2E))]
 public class end_to_end_with_named_broker
 {
     public static async Task bootstrap_with_named_brokers()

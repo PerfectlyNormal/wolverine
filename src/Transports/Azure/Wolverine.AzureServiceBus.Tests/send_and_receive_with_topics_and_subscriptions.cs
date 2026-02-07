@@ -4,24 +4,23 @@ using Xunit;
 
 namespace Wolverine.AzureServiceBus.Tests;
 
-public class TopicsComplianceFixture : AzureServiceBusTransportComplianceFixture, IAsyncLifetime
+public class TopicsComplianceFixture : TransportComplianceFixture, IAsyncLifetime
 {
     public TopicsComplianceFixture() : base(new Uri("asb://topic/topic1"), 120)
     {
     }
 
-    public override async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
-        await base.InitializeAsync();
         await SenderIs(opts =>
         {
-            opts.UseAzureServiceBus(ConnectionString, managementConnectionString: ManagementConnectionString)
+            opts.UseAzureServiceBus(AzureServiceBusE2EFixture.ServiceBusContainer.GetConnectionString(), managementConnectionString: AzureServiceBusE2EFixture.ServiceBusContainer.GetHttpConnectionString())
                 .AutoProvision();
         });
 
         await ReceiverIs(opts =>
         {
-            opts.UseAzureServiceBus(ConnectionString, managementConnectionString: ManagementConnectionString)
+            opts.UseAzureServiceBus(AzureServiceBusE2EFixture.ServiceBusContainer.GetConnectionString(), managementConnectionString: AzureServiceBusE2EFixture.ServiceBusContainer.GetHttpConnectionString())
                 .AutoProvision();
 
             opts.ListenToAzureServiceBusSubscription("subscription1").FromTopic("topic1");

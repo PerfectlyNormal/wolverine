@@ -27,7 +27,7 @@ public static class MultiTenantMessageHandler
     }
 }
 
-public class MultiTenantedAzureServiceBusFixture : AzureServiceBusE2EFixture
+public class MultiTenantedAzureServiceBusFixture
 {
     public const string Tenant1ConnectionString = "CHANGE ME TO A REAL THING";
     public const string Tenant2ConnectionString = "CHANGE ME TO A REAL THING";
@@ -41,10 +41,8 @@ public class MultiTenantedAzureServiceBusFixture : AzureServiceBusE2EFixture
 
     public IHost Main { get; private set; }
 
-    public override async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
-        await base.InitializeAsync();
-
         Main = await Host.CreateDefaultBuilder()
             .UseWolverine(opts =>
             {
@@ -52,7 +50,7 @@ public class MultiTenantedAzureServiceBusFixture : AzureServiceBusE2EFixture
 
                 opts.ServiceName = "main";
 
-                opts.UseAzureServiceBus(ConnectionString, managementConnectionString: ManagementConnectionString).AutoProvision().AutoPurgeOnStartup()
+                opts.UseAzureServiceBus(AzureServiceBusE2EFixture.ServiceBusContainer.GetConnectionString(), managementConnectionString: AzureServiceBusE2EFixture.ServiceBusContainer.GetHttpConnectionString()).AutoProvision().AutoPurgeOnStartup()
                     .AddTenantByConnectionString("one", Tenant1ConnectionString)
                     .AddTenantByConnectionString("two", Tenant2ConnectionString)
                     .AddTenantByConnectionString("three", Tenant3ConnectionString);
@@ -105,7 +103,7 @@ public class MultiTenantedAzureServiceBusFixture : AzureServiceBusE2EFixture
             }).StartAsync();
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         await Main.StopAsync();
         await One.StopAsync();

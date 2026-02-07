@@ -8,7 +8,6 @@ using Xunit;
 
 namespace Wolverine.AzureServiceBus.Tests.ConventionalRouting.Broadcasting;
 
-[Collection(nameof(AzureServiceBusE2E))]
 public class end_to_end_with_conventional_routing : IDisposable
 {
     private readonly IHost _receiver;

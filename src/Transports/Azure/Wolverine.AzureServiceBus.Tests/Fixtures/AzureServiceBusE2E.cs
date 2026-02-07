@@ -1,62 +1,40 @@
 using Testcontainers.ServiceBus;
-using Wolverine.ComplianceTests.Compliance;
 using Xunit;
 
 namespace Wolverine.AzureServiceBus.Tests.Fixtures;
 
-[CollectionDefinition("AzureServiceBusE2E")]
-public class AzureServiceBusE2E : ICollectionFixture<AzureServiceBusE2EFixture>
-{
-}
-
 public class AzureServiceBusE2EFixture : IAsyncLifetime
 {
-    private ServiceBusContainer _serviceBusContainer;
+    //private static readonly ServiceBusContainer _serviceBusContainer =
+    //    new ServiceBusBuilder("mcr.microsoft.com/azure-messaging/servicebus-emulator:latest")
+    //    .WithAcceptLicenseAgreement(true)
+    //    .Build();
 
-    public virtual async Task InitializeAsync()
+    private static readonly DockerHostedServiceBus _serviceBusContainer = new();
+
+    public virtual ValueTask InitializeAsync()
     {
-        _serviceBusContainer = new ServiceBusBuilder("mcr.microsoft.com/azure-messaging/servicebus-emulator:latest")
-            .WithAcceptLicenseAgreement(true)
-            .Build();
-
-        await _serviceBusContainer.StartAsync();
+        return ValueTask.CompletedTask;
+        //await _serviceBusContainer.StartAsync();
     }
 
-    public ServiceBusContainer ServiceBus => _serviceBusContainer;
-
+    public static DockerHostedServiceBus ServiceBusContainer => _serviceBusContainer;
     public string ConnectionString => _serviceBusContainer.GetConnectionString();
     public string ManagementConnectionString => _serviceBusContainer.GetHttpConnectionString();
 
-    public virtual async Task DisposeAsync()
+    public virtual ValueTask DisposeAsync()
     {
-        await _serviceBusContainer.StopAsync();
-        await _serviceBusContainer.DisposeAsync();
+        return ValueTask.CompletedTask;
+        //throw new Exception("Disposing already!?");
+        //await _serviceBusContainer.StopAsync();
+        //await _serviceBusContainer.DisposeAsync();
     }
 }
 
-public class AzureServiceBusTransportComplianceFixture(Uri destination, int defaultTimeInSeconds = 5) : TransportComplianceFixture(destination, defaultTimeInSeconds), IAsyncLifetime
+public class DockerHostedServiceBus
 {
-    private ServiceBusContainer _serviceBusContainer;
-
-    public virtual async Task InitializeAsync()
-    {
-        _serviceBusContainer = new ServiceBusBuilder("mcr.microsoft.com/azure-messaging/servicebus-emulator:latest")
-            .WithAcceptLicenseAgreement(true)
-            .Build();
-
-        await _serviceBusContainer.StartAsync();
-    }
-
-    public ServiceBusContainer ServiceBus => _serviceBusContainer;
-
-    public string ConnectionString => _serviceBusContainer.GetConnectionString();
-    public string ManagementConnectionString => _serviceBusContainer.GetHttpConnectionString();
-
-    public virtual async Task DisposeAsync()
-    {
-        await _serviceBusContainer.StopAsync();
-        await _serviceBusContainer.DisposeAsync();
-    }
+    public string GetConnectionString() => "Endpoint=sb://localhost;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=SAS_KEY_VALUE;UseDevelopmentEmulator=true;";
+    public string GetHttpConnectionString() => "Endpoint=sb://localhost:5300;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=SAS_KEY_VALUE;UseDevelopmentEmulator=true;";
 }
 
 public static class ServiceBusContainerExtensions
@@ -68,7 +46,7 @@ public static class ServiceBusContainerExtensions
     /// This connection string is intended for use with the ServiceBusAdministrationClient.
     /// </remarks>
     /// <returns>The Service Bus HTTP connection string.</returns>
-    [Obsolete("Coming in a later Testcontainers release")]
+    [Obsolete("Coming in a later Testcontainers release, so use that when available")]
     public static string GetHttpConnectionString(this ServiceBusContainer sb)
     {
         var properties = new Dictionary<string, string>

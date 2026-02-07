@@ -9,7 +9,6 @@ using Xunit;
 
 namespace Wolverine.AzureServiceBus.Tests;
 
-[Collection("AzureServiceBusE2E")]
 public class end_to_end(AzureServiceBusE2EFixture fixture) : IAsyncLifetime
 {
     private IHost _host;

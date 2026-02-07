@@ -8,7 +8,6 @@ using Xunit;
 
 namespace Wolverine.AzureServiceBus.Tests;
 
-[Collection(nameof(AzureServiceBusE2E))]
 public class leader_election : LeadershipElectionCompliance
 {
     private readonly AzureServiceBusE2EFixture fixture;
