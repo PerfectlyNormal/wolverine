@@ -1,6 +1,7 @@
 using JasperFx.Core;
 using Shouldly;
 using Wolverine.AzureServiceBus.Internal;
+using Wolverine.AzureServiceBus.Tests.Fixtures;
 using Wolverine.Configuration;
 using Xunit;
 
@@ -11,7 +12,7 @@ public class when_discovering_a_listening_endpoint_with_all_defaults : Conventio
     private readonly Uri theExpectedUri = "asb://queue/routed2".ToUri();
     private readonly AzureServiceBusQueue theQueue;
 
-    public when_discovering_a_listening_endpoint_with_all_defaults()
+    public when_discovering_a_listening_endpoint_with_all_defaults(AzureServiceBusE2EFixture fixture) : base(fixture)
     {
         theQueue = theRuntime.Endpoints.EndpointFor(theExpectedUri).ShouldBeOfType<AzureServiceBusQueue>();
     }

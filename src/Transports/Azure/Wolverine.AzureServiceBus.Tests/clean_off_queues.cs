@@ -20,7 +20,7 @@ public class clean_off_queues
         using var host = await Host.CreateDefaultBuilder()
             .UseWolverine(opts =>
             {
-                opts.UseAzureServiceBusTesting();
+                opts.UseAzureServiceBus("", managementConnectionString: "");
             }).StartAsync();
 
         var transport = host.GetRuntime().Options.Transports.GetOrCreate<AzureServiceBusTransport>();

@@ -1,22 +1,24 @@
 using JasperFx.Core;
 using Microsoft.Extensions.Hosting;
 using Shouldly;
+using Wolverine.AzureServiceBus.Tests.Fixtures;
 using Wolverine.ComplianceTests;
 using Wolverine.Tracking;
 using Xunit;
 
 namespace Wolverine.AzureServiceBus.Tests.ConventionalRouting;
 
+[Collection(nameof(AzureServiceBusE2E))]
 public class end_to_end_with_conventional_routing_with_prefix : IDisposable
 {
     private readonly IHost _receiver;
     private readonly IHost _sender;
 
-    public end_to_end_with_conventional_routing_with_prefix()
+    public end_to_end_with_conventional_routing_with_prefix(AzureServiceBusE2EFixture fixture)
     {
         _sender = WolverineHost.For(opts =>
         {
-            opts.UseAzureServiceBusTesting()
+            opts.UseAzureServiceBus(fixture.ConnectionString, managementConnectionString: fixture.ManagementConnectionString)
                 .PrefixIdentifiers("shazaam")
                 .UseConventionalRouting().AutoProvision().AutoPurgeOnStartup();
             opts.DisableConventionalDiscovery();
@@ -25,7 +27,7 @@ public class end_to_end_with_conventional_routing_with_prefix : IDisposable
 
         _receiver = WolverineHost.For(opts =>
         {
-            opts.UseAzureServiceBusTesting()
+            opts.UseAzureServiceBus(fixture.ConnectionString, managementConnectionString: fixture.ManagementConnectionString)
                 .PrefixIdentifiers("shazaam")
                 .UseConventionalRouting().AutoProvision().AutoPurgeOnStartup();
             opts.ServiceName = "Receiver";

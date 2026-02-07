@@ -7,10 +7,11 @@ using Wolverine.Configuration;
 using Wolverine.Runtime.Routing;
 using Wolverine.Util;
 using Xunit;
+using Wolverine.AzureServiceBus.Tests.Fixtures;
 
 namespace Wolverine.AzureServiceBus.Tests.ConventionalRouting;
 
-public class conventional_listener_discovery : ConventionalRoutingContext
+public class conventional_listener_discovery(AzureServiceBusE2EFixture fixture) : ConventionalRoutingContext(fixture)
 {
     [Fact]
     public void disable_sender_with_lambda()

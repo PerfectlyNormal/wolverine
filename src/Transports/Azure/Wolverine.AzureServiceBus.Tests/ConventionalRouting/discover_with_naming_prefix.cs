@@ -1,24 +1,27 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Shouldly;
+using Wolverine.AzureServiceBus.Tests.Fixtures;
 using Wolverine.Runtime;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace Wolverine.AzureServiceBus.Tests.ConventionalRouting;
 
+[Collection(nameof(AzureServiceBusE2E))]
 public class discover_with_naming_prefix : IDisposable
 {
     private readonly IHost _host;
     private readonly ITestOutputHelper _output;
 
-    public discover_with_naming_prefix(ITestOutputHelper output)
+    public discover_with_naming_prefix(AzureServiceBusE2EFixture fixture, ITestOutputHelper output)
     {
         _output = output;
         _host = Host.CreateDefaultBuilder()
             .UseWolverine(opts =>
             {
-                opts.UseAzureServiceBusTesting().PrefixIdentifiers("zztop").UseConventionalRouting().AutoProvision()
+                opts.UseAzureServiceBus(fixture.ConnectionString, managementConnectionString: fixture.ManagementConnectionString)
+                    .PrefixIdentifiers("zztop").UseConventionalRouting().AutoProvision()
                     .AutoPurgeOnStartup();
             }).Start();
     }

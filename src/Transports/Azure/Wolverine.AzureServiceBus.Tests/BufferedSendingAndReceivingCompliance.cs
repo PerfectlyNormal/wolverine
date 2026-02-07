@@ -2,41 +2,38 @@ using JasperFx.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging.Abstractions;
 using Shouldly;
+using Wolverine.AzureServiceBus.Tests.Fixtures;
 using Wolverine.ComplianceTests.Compliance;
 using Wolverine.Runtime;
 using Xunit;
 
 namespace Wolverine.AzureServiceBus.Tests;
 
-public class BufferedComplianceFixture : TransportComplianceFixture, IAsyncLifetime
+public class BufferedComplianceFixture : AzureServiceBusTransportComplianceFixture
 {
     public BufferedComplianceFixture() : base(new Uri("asb://queue/buffered-receiver"), 120)
     {
     }
 
-    public async Task InitializeAsync()
+    public override async Task InitializeAsync()
     {
+        await base.InitializeAsync();
         var queueName = Guid.NewGuid().ToString();
         OutboundAddress = new Uri("asb://queue/" + queueName);
 
         await SenderIs(opts =>
         {
-            opts.UseAzureServiceBusTesting()
+            opts.UseAzureServiceBus(ConnectionString, managementConnectionString: ManagementConnectionString)
                 .AutoProvision();
         });
 
         await ReceiverIs(opts =>
         {
-            opts.UseAzureServiceBusTesting()
+            opts.UseAzureServiceBus(ConnectionString, managementConnectionString: ManagementConnectionString)
                 .AutoProvision();
 
             opts.ListenToAzureServiceBusQueue(queueName, q => q.Options.AutoDeleteOnIdle = 5.Minutes()).BufferedInMemory();
         });
-    }
-
-    public async Task DisposeAsync()
-    {
-        await DisposeAsync();
     }
 }
 
@@ -60,6 +57,5 @@ public class BufferedSendingAndReceivingCompliance : TransportCompliance<Buffere
         var messageReceiver = transport.BusClient.CreateReceiver(AzureServiceBusTransport.DeadLetterQueueName);
         var queued = await messageReceiver.ReceiveMessageAsync();
         queued.ShouldNotBeNull();
-
     }
 }

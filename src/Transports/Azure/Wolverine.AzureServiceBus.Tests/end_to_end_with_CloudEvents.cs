@@ -2,13 +2,15 @@ using JasperFx.Core;
 using Microsoft.Extensions.Hosting;
 using Shouldly;
 using Wolverine.AzureServiceBus.Internal;
+using Wolverine.AzureServiceBus.Tests.Fixtures;
 using Wolverine.Configuration;
 using Wolverine.Tracking;
 using Xunit;
 
 namespace Wolverine.AzureServiceBus.Tests;
 
-public class end_to_end_with_CloudEvents : IAsyncLifetime
+[Collection(nameof(AzureServiceBusE2E))]
+public class end_to_end_with_CloudEvents(AzureServiceBusE2EFixture fixture) : IAsyncLifetime
 {
     private IHost _host;
 
@@ -17,7 +19,7 @@ public class end_to_end_with_CloudEvents : IAsyncLifetime
         _host = await Host.CreateDefaultBuilder()
             .UseWolverine(opts =>
             {
-                opts.UseAzureServiceBusTesting()
+                opts.UseAzureServiceBus(fixture.ConnectionString, managementConnectionString: fixture.ManagementConnectionString)
                     .AutoProvision().AutoPurgeOnStartup();
 
                 opts.ListenToAzureServiceBusQueue("cloudevents").InteropWithCloudEvents();

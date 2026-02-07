@@ -1,6 +1,7 @@
 using JasperFx.Core;
 using Shouldly;
 using Wolverine.AzureServiceBus.Internal;
+using Wolverine.AzureServiceBus.Tests.Fixtures;
 using Xunit;
 
 namespace Wolverine.AzureServiceBus.Tests.ConventionalRouting;
@@ -10,7 +11,7 @@ public class when_discovering_a_listening_endpoint_with_overridden_queue_naming 
     private readonly Uri theExpectedUri = "asb://queue/routedmessage2".ToUri();
     private readonly AzureServiceBusQueue theQueue;
 
-    public when_discovering_a_listening_endpoint_with_overridden_queue_naming()
+    public when_discovering_a_listening_endpoint_with_overridden_queue_naming(AzureServiceBusE2EFixture fixture) : base(fixture)
     {
         ConfigureConventions(c => c.QueueNameForListener(t => t.Name.ToLower() + "2"));
 

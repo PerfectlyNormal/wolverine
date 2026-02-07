@@ -2,14 +2,15 @@ using JasperFx.Core;
 using Microsoft.Extensions.Hosting;
 using Shouldly;
 using Wolverine.AzureServiceBus.Internal;
+using Wolverine.AzureServiceBus.Tests.Fixtures;
 using Wolverine.Configuration;
 using Wolverine.Tracking;
-using Wolverine.Transports;
 using Xunit;
 
 namespace Wolverine.AzureServiceBus.Tests;
 
-public class end_to_end : IAsyncLifetime
+[Collection("AzureServiceBusE2E")]
+public class end_to_end(AzureServiceBusE2EFixture fixture) : IAsyncLifetime
 {
     private IHost _host;
 
@@ -20,7 +21,7 @@ public class end_to_end : IAsyncLifetime
         _host = await Host.CreateDefaultBuilder()
             .UseWolverine(opts =>
             {
-                opts.UseAzureServiceBusTesting()
+                opts.UseAzureServiceBus(fixture.ConnectionString, managementConnectionString: fixture.ManagementConnectionString)
                     .AutoProvision().AutoPurgeOnStartup();
 
                 opts.ListenToAzureServiceBusQueue("send_and_receive");
@@ -63,9 +64,9 @@ public class end_to_end : IAsyncLifetime
         #endregion
     }
 
-    public Task DisposeAsync()
+    public async Task DisposeAsync()
     {
-        return _host.StopAsync();
+        await _host.StopAsync();
     }
 
     [Fact]
@@ -89,7 +90,7 @@ public class end_to_end : IAsyncLifetime
         var host = await Host.CreateDefaultBuilder()
             .UseWolverine(opts =>
             {
-                opts.UseAzureServiceBusTesting()
+                opts.UseAzureServiceBus(fixture.ConnectionString, managementConnectionString: fixture.ManagementConnectionString)
                     .AutoProvision().AutoPurgeOnStartup()
                     .SystemQueuesAreEnabled(false);
 
@@ -166,7 +167,7 @@ public class end_to_end : IAsyncLifetime
             .ExecuteAndWaitAsync(sendMany);
 
         session.Received.MessagesOf<AsbMessage3>().Select(x => x.Name)
-            .ShouldBe(new string[]{"Red", "Green", "Refactor"});
+            .ShouldBe(new string[] { "Red", "Green", "Refactor" });
     }
 
     [Fact]

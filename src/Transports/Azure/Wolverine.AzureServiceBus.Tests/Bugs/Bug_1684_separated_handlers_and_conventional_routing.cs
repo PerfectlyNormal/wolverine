@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Shouldly;
 using Wolverine.Attributes;
+using Wolverine.AzureServiceBus.Tests.Fixtures;
 using Wolverine.Runtime;
 using Wolverine.Tracking;
 using Xunit;
@@ -10,7 +11,8 @@ using Xunit.Abstractions;
 
 namespace Wolverine.AzureServiceBus.Tests.Bugs;
 
-public class Bug_1684_separated_handlers_and_conventional_routing(ITestOutputHelper Output)
+[Collection(nameof(AzureServiceBusE2E))]
+public class Bug_1684_separated_handlers_and_conventional_routing(AzureServiceBusE2EFixture fixture, ITestOutputHelper Output)
 {
     [Fact]
     public async Task try_it_and_send_to_multiple_topic_subscriptions()
@@ -18,7 +20,7 @@ public class Bug_1684_separated_handlers_and_conventional_routing(ITestOutputHel
         using var host = await Host.CreateDefaultBuilder()
             .UseWolverine(opts =>
             {
-                opts.UseAzureServiceBusTesting()
+                opts.UseAzureServiceBus(fixture.ConnectionString, managementConnectionString: fixture.ManagementConnectionString)
                     .AutoProvision()
                     .AutoPurgeOnStartup()
                     .UseTopicAndSubscriptionConventionalRouting(x =>

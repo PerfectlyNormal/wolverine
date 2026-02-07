@@ -5,10 +5,12 @@ using Shouldly;
 using Wolverine.ComplianceTests;
 using Wolverine.Tracking;
 using Xunit;
+using Wolverine.AzureServiceBus.Tests.Fixtures;
 
 namespace Wolverine.AzureServiceBus.Tests.ConventionalRouting;
 
-public class end_to_end_with_conventional_routing : IAsyncLifetime
+[Collection(nameof(AzureServiceBusE2E))]
+public class end_to_end_with_conventional_routing(AzureServiceBusE2EFixture fixture) : IAsyncLifetime
 {
     private IHost _receiver;
     private IHost _sender;
@@ -18,7 +20,8 @@ public class end_to_end_with_conventional_routing : IAsyncLifetime
         _sender = await Host.CreateDefaultBuilder()
             .UseWolverine(opts =>
             {
-                opts.UseAzureServiceBusTesting().UseConventionalRouting().AutoProvision().AutoPurgeOnStartup();
+                opts.UseAzureServiceBus(fixture.ConnectionString, managementConnectionString: fixture.ManagementConnectionString)
+                    .UseConventionalRouting().AutoProvision().AutoPurgeOnStartup();
                 opts.DisableConventionalDiscovery();
                 opts.ServiceName = "Sender";
 
@@ -28,7 +31,8 @@ public class end_to_end_with_conventional_routing : IAsyncLifetime
         _receiver = await Host.CreateDefaultBuilder()
             .UseWolverine(opts =>
             {
-                opts.UseAzureServiceBusTesting().UseConventionalRouting().AutoProvision().AutoPurgeOnStartup();
+                opts.UseAzureServiceBus(fixture.ConnectionString, managementConnectionString: fixture.ManagementConnectionString)
+                    .UseConventionalRouting().AutoProvision().AutoPurgeOnStartup();
                 opts.ServiceName = "Receiver";
                 
                 opts.Services.AddResourceSetupOnStartup();

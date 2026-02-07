@@ -1,12 +1,14 @@
 using JasperFx.Core;
 using Microsoft.Extensions.Hosting;
 using Shouldly;
+using Wolverine.AzureServiceBus.Tests.Fixtures;
 using Wolverine.Tracking;
 using Xunit;
 
 namespace Wolverine.AzureServiceBus.Tests;
 
-public class using_native_scheduling
+[Collection(nameof(AzureServiceBusE2E))]
+public class using_native_scheduling(AzureServiceBusE2EFixture fixture)
 {
     [Fact]
     public async Task with_inline_endpoint()
@@ -14,7 +16,7 @@ public class using_native_scheduling
         using var host = await Host.CreateDefaultBuilder()
             .UseWolverine(opts =>
             {
-                opts.UseAzureServiceBusTesting()
+                opts.UseAzureServiceBus(fixture.ConnectionString, managementConnectionString: fixture.ManagementConnectionString)
                     .AutoProvision().AutoPurgeOnStartup();
 
                 opts.ListenToAzureServiceBusQueue("inline1").ProcessInline();
@@ -38,7 +40,7 @@ public class using_native_scheduling
         using var host = await Host.CreateDefaultBuilder()
             .UseWolverine(opts =>
             {
-                opts.UseAzureServiceBusTesting()
+                opts.UseAzureServiceBus(fixture.ConnectionString, managementConnectionString: fixture.ManagementConnectionString)
                     .AutoProvision().AutoPurgeOnStartup();
 
                 opts.ListenToAzureServiceBusQueue("inline1").ProcessInline();
@@ -68,7 +70,7 @@ public class using_native_scheduling
         using var host = await Host.CreateDefaultBuilder()
             .UseWolverine(opts =>
             {
-                opts.UseAzureServiceBusTesting()
+                opts.UseAzureServiceBus(fixture.ConnectionString, managementConnectionString: fixture.ManagementConnectionString)
                     .AutoProvision().AutoPurgeOnStartup();
 
                 opts.ListenToAzureServiceBusQueue("inline1").ProcessInline();
@@ -98,7 +100,7 @@ public class using_native_scheduling
         using var host = await Host.CreateDefaultBuilder()
             .UseWolverine(opts =>
             {
-                opts.UseAzureServiceBusTesting()
+                opts.UseAzureServiceBus(fixture.ConnectionString, managementConnectionString: fixture.ManagementConnectionString)
                     .AutoProvision().AutoPurgeOnStartup();
 
                 opts.ListenToAzureServiceBusQueue("buffered1").BufferedInMemory();

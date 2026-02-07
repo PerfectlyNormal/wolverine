@@ -1,22 +1,24 @@
 using JasperFx.Core;
 using Microsoft.Extensions.Hosting;
 using Shouldly;
+using Wolverine.AzureServiceBus.Tests.Fixtures;
 using Wolverine.ComplianceTests;
 using Wolverine.Tracking;
 using Xunit;
 
 namespace Wolverine.AzureServiceBus.Tests.ConventionalRouting.Broadcasting;
 
+[Collection(nameof(AzureServiceBusE2E))]
 public class end_to_end_with_conventional_routing : IDisposable
 {
     private readonly IHost _receiver;
     private readonly IHost _sender;
 
-    public end_to_end_with_conventional_routing()
+    public end_to_end_with_conventional_routing(AzureServiceBusE2EFixture fixture)
     {
         _sender = WolverineHost.For(opts =>
         {
-            opts.UseAzureServiceBusTesting().UseTopicAndSubscriptionConventionalRouting(x =>
+            opts.UseAzureServiceBus(fixture.ConnectionString, managementConnectionString: fixture.ManagementConnectionString).UseTopicAndSubscriptionConventionalRouting(x =>
             {
                 // Can't use the full name because of limitations on name length
                 x.SubscriptionNameForListener(t => t.Name.ToLowerInvariant());
@@ -31,7 +33,7 @@ public class end_to_end_with_conventional_routing : IDisposable
         {
             #region sample_using_topic_and_subscription_conventional_routing_with_azure_service_bus
 
-            opts.UseAzureServiceBusTesting()
+            opts.UseAzureServiceBus(fixture.ConnectionString, managementConnectionString: fixture.ManagementConnectionString)
                 .UseTopicAndSubscriptionConventionalRouting(convention =>
                 {
                     // Optionally control every aspect of the convention and

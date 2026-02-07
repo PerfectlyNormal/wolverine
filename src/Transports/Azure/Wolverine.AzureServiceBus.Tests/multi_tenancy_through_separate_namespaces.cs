@@ -3,6 +3,7 @@ using JasperFx.Core;
 using JasperFx.Resources;
 using Microsoft.Extensions.Hosting;
 using Shouldly;
+using Wolverine.AzureServiceBus.Tests.Fixtures;
 using Wolverine.ComplianceTests.Compliance;
 using Wolverine.Tracking;
 using Xunit;
@@ -26,7 +27,7 @@ public static class MultiTenantMessageHandler
     }
 }
 
-public class MultiTenantedAzureServiceBusFixture : IAsyncLifetime
+public class MultiTenantedAzureServiceBusFixture : AzureServiceBusE2EFixture
 {
     public const string Tenant1ConnectionString = "CHANGE ME TO A REAL THING";
     public const string Tenant2ConnectionString = "CHANGE ME TO A REAL THING";
@@ -40,8 +41,10 @@ public class MultiTenantedAzureServiceBusFixture : IAsyncLifetime
 
     public IHost Main { get; private set; }
 
-    public async Task InitializeAsync()
+    public override async Task InitializeAsync()
     {
+        await base.InitializeAsync();
+
         Main = await Host.CreateDefaultBuilder()
             .UseWolverine(opts =>
             {
@@ -49,7 +52,7 @@ public class MultiTenantedAzureServiceBusFixture : IAsyncLifetime
 
                 opts.ServiceName = "main";
 
-                opts.UseAzureServiceBusTesting().AutoProvision().AutoPurgeOnStartup()
+                opts.UseAzureServiceBus(ConnectionString, managementConnectionString: ManagementConnectionString).AutoProvision().AutoPurgeOnStartup()
                     .AddTenantByConnectionString("one", Tenant1ConnectionString)
                     .AddTenantByConnectionString("two", Tenant2ConnectionString)
                     .AddTenantByConnectionString("three", Tenant3ConnectionString);

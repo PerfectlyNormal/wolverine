@@ -1,5 +1,6 @@
 using Azure.Messaging.ServiceBus.Administration;
 using Shouldly;
+using Wolverine.AzureServiceBus.Tests.Fixtures;
 using Wolverine.ComplianceTests.Compliance;
 using Wolverine.Tracking;
 using Xunit;
@@ -7,19 +8,21 @@ using Xunit;
 namespace Wolverine.AzureServiceBus.Tests;
 
 public class TopicsWithCustomRuleComplianceFixture()
-    : TransportComplianceFixture(new Uri("asb://topic/topic1"), 120), IAsyncLifetime
+    : AzureServiceBusTransportComplianceFixture(new Uri("asb://topic/topic1"), 120)
 {
-    public async Task InitializeAsync()
+    public override async Task InitializeAsync()
     {
+        await base.InitializeAsync();
+
         await SenderIs(opts =>
         {
-            opts.UseAzureServiceBusTesting()
+            opts.UseAzureServiceBus(ConnectionString, managementConnectionString: ManagementConnectionString)
                 .AutoProvision();
         });
 
         await ReceiverIs(opts =>
         {
-            opts.UseAzureServiceBusTesting()
+            opts.UseAzureServiceBus(ConnectionString, managementConnectionString: ManagementConnectionString)
                 .AutoProvision();
 
             opts.ListenToAzureServiceBusSubscription(
@@ -30,11 +33,6 @@ public class TopicsWithCustomRuleComplianceFixture()
                     })
                 .FromTopic("topic1");
         });
-    }
-
-    public Task DisposeAsync()
-    {
-        return Task.CompletedTask;
     }
 }
 
